@@ -1,0 +1,12 @@
+**/node_modules
+build
+dist
+.env
+**/.vscode
+**/output
+.DS_Store
+results.json
+**/.idea
+
+### we don't need to save session cookies in the repo
+storageState.json
