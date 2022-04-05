@@ -1,0 +1,65 @@
+stages:
+  - e2e-tests-sandbox
+  - ui-e2e-tests-staging
+
+
+variables:
+  EC2_RUN_TEST_FILE: '$CI_PROJECT_DIR/ui-e2e-tests/utils/ec2-run-tests.sh'
+  INSTANCE_PRIVATE_IP: '10.41.10.158'
+  INSTANCE_ID: 'i-09e093a7064a55802'
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - ./api-e2e-tests/node_modules/
+    - ./ui-e2e-tests/node_modules/
+
+image: pandit1981/node_awscli
+
+api-tests-sandbox:
+  stage: e2e-tests-sandbox
+  script:
+    - cd ./api-e2e-tests/
+    - npm install
+    - npx patch-package
+    - npm run test:sandbox
+  tags: [ apps ]
+
+before_script:
+  - mkdir -p ~/.ssh
+  - touch ~/.ssh/config
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
+  - eval `ssh-agent -s`
+  - echo "$LABS_KEY" |  tr -d ' ' | base64 --decode | ssh-add -
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+  - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+  - aws configure set region ap-southeast-2
+
+chrome-ec2-sandbox:
+  stage: e2e-tests-sandbox
+  script:
+    - aws ec2 start-instances --instance-ids ${INSTANCE_ID}
+    - scp $EC2_RUN_TEST_FILE ubuntu@${INSTANCE_PRIVATE_IP}:~/test-project/ec2-run-tests.sh
+    - echo "starting test execution agsinst sandbox on ec2 ${INSTANCE_PRIVATE_IP}"
+    - ssh ubuntu@${INSTANCE_PRIVATE_IP} ". ~/test-project/ec2-run-tests.sh && npm run test:sandbox:remote:chrome"
+    - scp -r ubuntu@${INSTANCE_PRIVATE_IP}:~/test-project/partners.e2e.tests/ui-e2e-tests/test-report $CI_PROJECT_DIR/test-report
+    - aws ec2 stop-instances --instance-ids ${INSTANCE_ID}
+  tags: [apps]
+  artifacts:
+    paths:
+      - test-report
+
+chrome-ec2-staging:
+  stage: ui-e2e-tests-staging
+  script:
+    - aws ec2 start-instances --instance-ids ${INSTANCE_ID}
+    - scp $EC2_RUN_TEST_FILE ubuntu@${INSTANCE_PRIVATE_IP}:~/test-project/ec2-run-tests.sh
+    - echo "starting test execution against staging on ec2 ${INSTANCE_PRIVATE_IP}"
+    - ssh ubuntu@${INSTANCE_PRIVATE_IP} ". ~/test-project/ec2-run-tests.sh && npm run test:staging:remote:chrome"
+    - scp -r ubuntu@${INSTANCE_PRIVATE_IP}:~/test-project/partners.e2e.tests/ui-e2e-tests/test-report $CI_PROJECT_DIR/test-report
+    - aws ec2 stop-instances --instance-ids ${INSTANCE_ID}
+  tags: [apps]
+  artifacts:
+    paths:
+      - test-report
+  when: manual

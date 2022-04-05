@@ -1,0 +1,27 @@
+{
+  "src": ["./tests/**/*.js"],
+  "concurrency": 1,
+  "reporter": [
+    {
+      "name": "spec"
+    },
+    {
+      "name": "html",
+      "output": "test-report/report.html"
+    },
+    {
+      "name": "slack"
+    }
+  ],
+  "screenshots": {
+    "takeOnFails": true,
+    "path": "screenshots/",
+    "pathPattern": "${USERAGENT}/${FILE_INDEX}.png"
+  },
+  "clientScripts": [{ "module": "@testing-library/dom/dist/@testing-library/dom.umd.js" }],
+  "skipJsErrors": true,
+  "quarantineMode": false,
+  "pageLoadTimeout":30000,
+  "assertionTimeout":10000,
+  "selectorTimeout":10000
+}

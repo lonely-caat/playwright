@@ -1,0 +1,9 @@
+{
+  "urls": "https://music.youtube.com/?utm_source=zip&utm_campaign=Campaign&medium=Twitter&utm_term=Term&utm_content=Content",
+  "og": {
+    "title": "title",
+    "description": "description",
+    "siteName": "Name",
+    "image": ""
+  }
+}

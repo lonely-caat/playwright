@@ -1,0 +1,43 @@
+{
+  "type": "module",
+  "name": "partners.e2e.tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run create:env && node -r dotenv-safe/config utils/test-runner.js",
+    "test:local:safari": "npm test -- safari",
+    "test:local:chrome:firefox": "npm test -- chrome:headless,firefox:headless",
+    "test:chrome:headless": "npm test -- chrome:headless",
+    "test:dev:remote:chrome": "./node_modules/.bin/cross-env TEST_ENV=dev npm run test:chrome:headless",
+    "test:dev:remote:safari": "./node_modules/.bin/cross-env TEST_ENV=dev npm run test:remote:safari",
+    "test:staging:remote:chrome": "./node_modules/.bin/cross-env TEST_ENV=staging npm run test:chrome:headless",
+    "test:staging:remote:safari": "./node_modules/.bin/cross-env TEST_ENV=staging npm run test:remote:safari",
+    "test:sandbox:remote:chrome": "./node_modules/.bin/cross-env TEST_ENV=sandbox npm run test:chrome:headless",
+    "test:sandbox:remote:safari": "./node_modules/.bin/cross-env TEST_ENV=sandbox npm run test:remote:safari",
+    "create:env": "bash utils/create-env.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/testcafe": "^4.3.1",
+    "chalk": "^4.0.0",
+    "cross-env": "^7.0.2",
+    "dotenv-safe": "^8.2.0",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-testcafe": "^0.2.1",
+    "prettier": "2.2.1",
+    "supertest": "^4.0.2",
+    "testcafe": "^1.11.0",
+    "testcafe-reporter-html": "^1.4.6",
+    "testcafe-reporter-slack": "0.0.6"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.6",
+    "randomstring": "^1.1.5"
+  }
+}
