@@ -1,0 +1,48 @@
+import { Frame, Page, Response } from 'playwright';
+import actions from '../helpers/actions';
+import createUser from '../utils/createUser';
+import { DEFAULT_PASSWORD } from '../constants/appData';
+
+const SignIn = (p: Page, f: Frame | null = null) => {
+  const page = f || p;
+  const elements = {
+    header: '//zip-view-sign-in//zip-panel-heading-title[1]',
+    emailField: '#mat-input-0',
+    passwordField: '#mat-input-1',
+    submitButton: '//form//button[@type="submit"]',
+  };
+  const { waitForResponse, clickFrameElement } = actions(p, f);
+
+  async function getHeaderText() {
+    const { header } = elements;
+    return page.innerText(header);
+  }
+
+  async function waitForTokenResponse(code = 0): Promise<Response> {
+    return waitForResponse('/login/v2/connect/token', {
+      status: code,
+      message: 'Zip login token',
+    });
+  }
+
+  async function performSignIn(password = DEFAULT_PASSWORD) {
+    const { email } = await createUser();
+    const { emailField, passwordField, submitButton } = elements;
+    await page.waitForSelector(emailField);
+    await page.type(emailField, email);
+    await page.type(passwordField, password);
+    if (f) {
+      await clickFrameElement(submitButton);
+    } else {
+      await page.click(submitButton);
+    }
+  }
+
+  return {
+    getHeaderText,
+    performSignIn,
+    waitForTokenResponse,
+  };
+};
+
+export default SignIn;

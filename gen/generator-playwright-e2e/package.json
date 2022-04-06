@@ -1,0 +1,63 @@
+{
+  "name": "@zip/generator-playwright-e2e",
+  "version": "1.1.1",
+  "description": "generator for MS Playwright boilerplate",
+  "license": "UNLICENSED",
+  "repository": "git@gitlab.com:zip-au/qa/generator-playwright-e2e.git",
+  "homepage": "",
+  "author": {
+    "name": "Dinesh Kumar",
+    "email": "dinesh.kumar@zip.co"
+  },
+  "files": [
+    "generators"
+  ],
+  "publishConfig": {
+    "registry": "https://zipau.jfrog.io/artifactory/api/npm/npm-local/"
+  },
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-config-xo": "^0.27.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.19.1"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "mkdirp": "^1.0.4",
+    "yeoman-generator": "^3.1.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "parser": "flow"
+        }
+      ]
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "scripts": {
+    "pretest": "eslint .",
+    "publish:latest": "npm publish"
+  }
+}

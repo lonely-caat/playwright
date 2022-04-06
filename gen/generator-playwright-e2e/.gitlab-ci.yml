@@ -1,0 +1,14 @@
+image: zipau-docker.jfrog.io/node-15.8:latest
+
+stages:
+  - publish
+
+publish:
+  stage: publish
+  script:
+    - echo @zip:registry=https://zipau.jfrog.io/artifactory/api/npm/npm-local/ > .npmrc
+    - curl -u $ARTIFACTORY_USER:$ARTIFACTORY_PASS https://zipau.jfrog.io/artifactory/api/npm/auth >> .npmrc
+    - echo //zipau.jfrog.io/artifactory/api/npm/npm-local/:email=dinesh.kumar@zip.co >> .npmrc
+    - echo //zipau.jfrog.io/artifactory/api/npm/npm-local/:always-auth=true >> .npmrc
+    - npm run publish:latest
+  tags: [ apps-apse2 ]

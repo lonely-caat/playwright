@@ -1,0 +1,37 @@
+{
+  "name": "playwright.e2e.tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf output/*",
+    "install:browsers": "npx playwright install chromium webkit",
+    "setup":  "run-s clean install:browsers" ,
+    "test": "npx playwright test --reporter=dot",
+    "test:ui:debug": "NODE_NO_WARNINGS=1 HEADLESS=false TEST_ENV='SANDBOX' TEST_RETRY=0 run-s setup \"test -- --grep=/debug/\"",
+    "test:ui:dev": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='DEV' run-s setup test",
+    "test:ui:sandbox": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='SANDBOX' run-s setup test",
+    "test:ui:sandbox:safari": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='SANDBOX' run-s setup \"test -- --browser=webkit\" ",
+    "test:ci": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='SANDBOX' TEST_CI=true run-s setup test"
+  },
+  "author": "Dinesh Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.14.0",
+    "dotenv-safe": "^8.2.0",
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-playwright": "^0.4.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.14.0",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "supertest": "^6.1.3",
+    "uuid": "^8.3.2"
+  },
+  "dependencies": {}
+}
