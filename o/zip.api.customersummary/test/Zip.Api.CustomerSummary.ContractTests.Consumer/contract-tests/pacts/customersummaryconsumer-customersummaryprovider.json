@@ -1,0 +1,105 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "customerSummaryProvider"
+  },
+  "interactions": [
+    {
+      "description": "Get request to return products",
+      "providerState": "it has the ability to return products json",
+      "request": {
+        "method": "GET",
+        "path": "/api/products",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "id": 1,
+            "classification": "zipPay",
+            "countryId": "AU",
+            "status": 1
+          },
+          {
+            "id": 2,
+            "classification": "zipMoney",
+            "countryId": "AU",
+            "status": 1
+          },
+          {
+            "id": 3,
+            "classification": "zipPay",
+            "countryId": "NZ",
+            "status": 1
+          },
+          {
+            "id": 4,
+            "classification": "zipMoney",
+            "countryId": "NZ",
+            "status": 1
+          },
+          {
+            "id": 5,
+            "classification": "zipBiz",
+            "countryId": "AU",
+            "status": 1
+          },
+          {
+            "id": 6,
+            "classification": "zipBizBasic",
+            "countryId": "AU",
+            "status": 1
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return countries",
+      "providerState": "it has the ability to return countries json",
+      "request": {
+        "method": "GET",
+        "path": "/api/countries",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "id": "AU",
+            "name": "Australia"
+          },
+          {
+            "id": "NZ",
+            "name": "New Zealand"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

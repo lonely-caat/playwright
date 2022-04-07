@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.Api.CustomerProfile", "Zip.Api.CustomerProfile\Zip.Api.CustomerProfile.csproj", "{3967ACAD-C141-4F9A-8AC9-F1A4C15B3A00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.Api.CustomerProfile.Test", "Zip.Api.CustomerProfile.Test\Zip.Api.CustomerProfile.Test.csproj", "{87A780DF-905C-4DD8-BEE4-A99A94B26A4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{82924F55-8D1C-4017-86BC-F69C0969735F}"
+ProjectSection(SolutionItems) = preProject
+	GlobalCodeAnalysisSuppressions.cs = GlobalCodeAnalysisSuppressions.cs
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3967ACAD-C141-4F9A-8AC9-F1A4C15B3A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3967ACAD-C141-4F9A-8AC9-F1A4C15B3A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3967ACAD-C141-4F9A-8AC9-F1A4C15B3A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3967ACAD-C141-4F9A-8AC9-F1A4C15B3A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A780DF-905C-4DD8-BEE4-A99A94B26A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A780DF-905C-4DD8-BEE4-A99A94B26A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A780DF-905C-4DD8-BEE4-A99A94B26A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A780DF-905C-4DD8-BEE4-A99A94B26A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B49E3FCD-F5FD-4BFD-8053-833C09B79D3E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+EKS_CLUSTER_NAME=perf-apse2-main
+AWS_DEFAULT_REGION=ap-southeast-2
+AWS_ROLE=zip-role-ci-apps
+AWS_ACCOUNT_ID=983019451762
+HELM_TEMPLATE_VALUES=values-perf.yaml

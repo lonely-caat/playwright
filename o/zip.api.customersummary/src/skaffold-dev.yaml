@@ -1,0 +1,16 @@
+apiVersion: skaffold/v1beta11
+kind: Config
+build:
+  artifacts:
+  - image: template
+    context: ./src/Zip.Api.CustomerSummary.Api
+    docker:
+      dockerfile: Dockerfile_dev
+    sync:
+      manual:
+        - src: '**/*.cs'
+          dest: /app/
+deploy:
+  kubectl:
+    manifests:
+    - ./src/charts/api-customer-summary/manifests/api-customer-summary/templates/*.yaml

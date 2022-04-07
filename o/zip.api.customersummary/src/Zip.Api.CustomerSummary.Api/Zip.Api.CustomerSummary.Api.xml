@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Zip.Api.CustomerSummary.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Zip.Api.CustomerSummary.Api.Chaos.SimmyExtensions.AddChaosInjectors(Polly.Registry.IPolicyRegistry{System.String})">
+            <summary>
+            Add chaos-injection policies to every policy returning <see cref="T:Polly.IAsyncPolicy`1"/>
+            in the supplied <paramref name="registry"/>.
+            </summary>
+            <param name="registry">The <see cref="T:Polly.Registry.IPolicyRegistry`1"/> whose policies should be decorated with chaos policies.</param>
+            <returns>The policy registry.</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.AccountsController.AddAttributeAndLockAccountAsync(Zip.Api.CustomerSummary.Application.Accounts.Command.AddAttributeAndLockAccount.AddAttributeAndLockAccountCommand)">
+            <summary>
+            Call this to mark a consumer with an unauthorised claim
+            </summary>
+            <param name="payload"> </param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.AddressController.SearchAsync(System.String,System.String)">
+            <summary>
+            Search addresses by input.
+            </summary>
+            <param name="input">Keyword</param>
+            <param name="countryCode">The country code ('au':'nz').</param>
+            <returns>A list of address predictions.</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.AddressController.VerifyAsync(System.String)">
+            <summary>
+            Address validation.
+            </summary>
+            <param name="input">The full address.</param>
+            <returns>Status</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.BeamController.GetCustomerDetailsAsync(System.Guid)">
+            <summary>
+            Given CustomerId (GUID), return Beam customer details
+            </summary>
+            <param name="customerId">The Guid of customer</param>
+            <returns>Beam customer details</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.BeamController.GetRewardActivityAsync(System.Guid,System.Int64,System.Int64,System.String)">
+            <summary>
+            Given customerId, pageNumber and pageSize, return a history of customer's reward activities
+            </summary>
+            <param name="request">CustomerId, PageNumber, PageSize (optional, defaults to 10), Region (optional, defaults to "au")</param>
+            <returns>Paginated Reward Activities of the customer</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.BeamController.CreateReconciliationReportAsync(Zip.Api.CustomerSummary.Application.Beam.Command.CreateReconciliationReport.CreateReconciliationReportCommand)">
+            <summary>
+            Asynchronously creates reconciliation report for all beam users for a selected month
+            </summary>
+            <param name="selectedDate"></param>
+            <returns>Guid as reference to the processing/processed report</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.BeamController.PollReconciliationReportAsync(System.Guid)">
+            <summary>
+            Given a Guid uuid (Report Id), make a proxy call to Beam API to fetch the report complete status and the URL to download it if complete
+            </summary>
+            <param name="reportId">Guid of an already created Beam reconciliation report</param>
+            <returns>Uuid (Beam Report Id), Complete (true/false), URL to the report (has expiry)</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.GetAsync(System.Int64)">
+            <summary>
+            Retrieve the desired consumer by id.
+            </summary>
+            <param name="consumerId">The id of consumer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.GetConsumerForVcnAsync(Zip.Api.CustomerSummary.Application.Consumers.Query.GetConsumer.Vcn.GetConsumerForVcnQuery)">
+            <summary>
+            Retrieve the desired consumer by customerId and product.
+            </summary>
+            <param name="request">The customerId and product of consumer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.UpdateAsync(Zip.Api.CustomerSummary.Application.Consumers.Command.UpdateConsumer.UpdateConsumerCommand)">
+            <summary>
+            Update desired consumer.
+            </summary>
+            <param name="payload">
+            <see cref="T:Zip.Api.CustomerSummary.Application.Consumers.Command.UpdateConsumer.UpdateConsumerCommand"/>
+            </param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.GetInfoAsync(System.Int64)">
+            <summary>
+            Get desired account info.
+            </summary>
+            <param name="consumerId">The id of consumer.</param>
+            <returns>Account Info</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.GetCloseAccountCreditProfileAsync(System.Int64)">
+            <summary>
+            This endpoint is used to fetch the required data for closing account.
+            </summary>
+            <param name="consumerId">Consumer Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersController.CloseAccountAsync(Zip.Api.CustomerSummary.Application.Accounts.Command.CloseAccount.CloseAccountCommand)">
+            <summary>
+            Call this to close account
+            </summary>
+            <param name="payload"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ConsumersV2Controller.GetAsync(Zip.Api.CustomerSummary.Application.Consumers.Query.GetConsumer.V2.GetConsumerQueryV2)">
+            <summary>
+            Retrieve the desired consumer by id.
+            </summary>
+            <param name="request">GetConsumerV2Query request that has ConsumerId</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ContactsController.GetAsync(System.Int64)">
+            <summary>
+            Retrieve the contacts by consumer Id.
+            </summary>
+            <param name="consumerId">The id of the consumer.</param>
+            <returns>A list of contacts.</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ContactsController.UpdateAsync(Zip.Api.CustomerSummary.Application.Consumers.Command.UpdateContact.UpdateContactCommand)">
+            <summary>
+            Update the contact.
+            </summary>
+            <param name="payload">Check<see cref="T:Zip.Api.CustomerSummary.Application.Consumers.Command.UpdateContact.UpdateContactCommand"/>.</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ContactsController.ResetPasswordAsync(Zip.Api.CustomerSummary.Application.Communications.Command.SendResetPasswordEmailNew.SendResetPasswordEmailNewCommand)">
+            <summary>
+            
+            </summary>
+            <param name="payload"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ContactsController.SendSmsCodeAsync(System.Int64)">
+            <summary>
+            Send SMS Code to customer's phone 
+            </summary>
+            <param name="consumerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.CountriesController.GetAsync">
+            <summary>
+            Retrieve all countries
+            </summary>
+            <returns>A list of countries</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentMethodsController.FindAsync(System.Int64,System.String)">
+            <summary>
+            Retrieve consumer's payment methods
+            </summary>
+            <param name="consumerId">Consumer Id</param>
+            <param name="state">State filter - ("Approved":"Removed":...)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentMethodsController.FindLatestOnlyAsync(System.Int64,System.String)">
+            <summary>
+            Get latest payment methods
+            </summary>
+            <param name="consumerId">Consuer Id</param>
+            <param name="state">The state - ("Approved" or "Removed")</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentMethodsController.GetAsync(System.Guid)">
+            <summary>
+            Retrieve the payment method by id
+            </summary>
+            <param name="id">Payment method id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentMethodsController.CreateBankPaymentMethodAsync(Zip.Api.CustomerSummary.Application.Payments.Command.CreateBankPaymentMethod.CreateBankPaymentMethodCommand)">
+            <summary>
+            Create a new payment method
+            </summary>
+            <param name="payload">Payload</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentsController.GetAsync(System.String)">
+            <summary>
+            Get desired payment by id
+            </summary>
+            <param name="id">payment id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.PaymentsController.FindAsync(System.Int64,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Guid})">
+            <summary>
+            Find payments via criteria
+            </summary>
+            <param name="accountId">account id</param>
+            <param name="fromDate">from date</param>
+            <param name="toDate">to date</param>
+            <param name="paymentBatchId">batch id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.ProductsController.GetAsync">
+            <summary>
+            Retrieve Zip's products.
+            </summary>
+            <returns>Products</returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.StatementsController.GenerateStatementAsync(Zip.Api.CustomerSummary.Application.Statements.Command.GenerateStatement.GenerateStatementCommand)">
+            <summary>
+            Generate statement
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.StatementsController.GetAvailableStatementDatesAsync(System.Int64)">
+            <summary>
+            Calculate available statement date ranges
+            </summary>
+            <param name="accountId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.TransactionsController.FindTransactionHistoryAsync(System.Int64,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Retrieve consumer's transactions
+            </summary>
+            <param name="consumerId">Consumer Id (required)</param>
+            <param name="startDate">Start date (optional)</param>
+            <param name="endDate">End date (optional)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.TransactionsController.GetOrderActivityAsync(System.Int64,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Retrieve consumer's order activity
+            </summary>
+            <param name="consumerId">(required)</param>
+            <param name="fromDate">(optional) Period start. Defaults to 2 months ago</param>
+            <param name="toDate">(optional) Period end. Defaults to tomorrow</param>
+            <param name="showAll">(optional) Whether to include parent orders or not. Defaults to false</param>
+            <returns></returns>
+        </member>
+        <member name="M:Zip.Api.CustomerSummary.Api.Controllers.TransactionsController.GetVcnTransactionsAsync(Zip.Api.CustomerSummary.Application.Transactions.Query.GetVcnTransactions.GetVcnTransactionsQuery)">
+            <summary>
+            Retrieve VCN transactions
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

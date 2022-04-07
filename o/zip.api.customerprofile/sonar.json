@@ -1,0 +1,4 @@
+{
+    "sonarHost": "https://zip-sonar.zip.co",
+    "sonarProjectKey": "zip-api-customerprofile"
+}

@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+
+ARG ARTIFACTORY_USER
+ARG ARTIFACTORY_PASS
+
+WORKDIR /app
+COPY ./src/NuGet.config ./src/
+COPY ./src/Zip.Api.CustomerProfile ./
+
+RUN sed "s/PACKAGESUSERNAME/$ARTIFACTORY_USER/" ./src/NuGet.config \
+	| sed "s/PACKAGESPASSWORD/$ARTIFACTORY_PASS/" > ./src/nuget.ci.build.config
+
+RUN dotnet build --configfile ./src/nuget.ci.build.config
+RUN rm -rf ./src/nuget.ci.build.config
+
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "watch", "run", "--launch-profile Development"]

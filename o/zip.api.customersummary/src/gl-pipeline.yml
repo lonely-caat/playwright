@@ -1,0 +1,296 @@
+## Notes
+##########
+## - Update variables below
+## - Ensure your app exposes a health endpoint under /api/health
+## - Your app if exposed externally to the cluster will be accessible at https://${APP_NAME}.dev.au.edge.zip.co
+## - Available environments : dev, sand, stag, prod
+
+variables:
+  APP_NAME: api-customer-summary # Application name
+  NAMESPACE: business-apps-and-support # The kubernetes namespace where you app will be deployed (Pls change!)
+  IMAGE_ROOT_DIR: $CI_PROJECT_DIR/src/ # Location of Dockerfile
+  DOCKERFILE: Dockerfile # Can be used to build/deploy multiple docker images/apps from the same repo if you have to (Although not recommended)
+  TAG: $CI_COMMIT_SHORT_SHA # Tag for docker images
+  INGRESS: hybrid-office # Whether your application will expose a public endpoint
+  EXPOSED_CONTAINER_PORT: 5000 # The port number exposed by your container/ docker image
+  REPLICA_COUNT: 3 # The number of replicas of your pod that will be deployed
+  AUTOSCALING_ENABLED: "true" # Enables auto-scaling (true if not defined)
+  MIN_REPLICAS: 3 # Only relevant if AUTOSCALING_ENABLED:true, defaults to REPLICA_COUNT
+  MAX_REPLICAS: 5 # Only relevant if AUTOSCALING_ENABLED:true, defaults to 10
+  TARGET_CPU_PERCENT: 80 # Only relevant if AUTOSCALING_ENABLED:true, defaults to 80
+  TARGET_MEMORY_PERCENT: 80 # Only relevant if AUTOSCALING_ENABLED:true, defaults to 80
+  PROBE_PATH: /health # defaults to /health
+  DEPLOY_TIMEOUT: 10 # How long to wait for pods to start
+  FS_GROUP: 1000 # So that app can read .vault-token file created by the vault container
+  READ_ONLY_FS: "false" # Enables pods to write to the FS (required for newRelic log agent in dotnet)
+  #  ENABLE_STORAGE: 'true' # Storage & persistent volumes only work for single pods for now because they are backed with EBS
+  #  STORAGE_SIZE: 10
+  #  STORAGE_MOUNT: /app/newrelic/logs
+  POD_CPU_REQ: 1000 # Request that pods to be provisioned with a 30% of a CPU core
+  POD_RAM_REQ: 1024 # Request that pods to be provisioned with 256MB of RAM
+  DOTNET_REPORTS_PATH: /test/Zip.Api.CustomerSummary.Api.Test
+  
+build-image:
+  image: zipau-docker.jfrog.io/$BUILD_IMAGE_NAME:$BUILD_IMAGE_VERSION
+  stage: build
+  services:
+    - name: zipau-docker.jfrog.io/docker:dind
+      alias: docker
+  variables:
+    APP_NAME: api-customer-summary
+  script:
+    - sed -i -e "s/PACKAGESUSERNAME/$ARTIFACTORY_USER/g" $CI_PROJECT_DIR/src/nuget.config # If you need publish/ import dotnet nugget from artifactory
+    - sed -i -e "s/PACKAGESPASSWORD/$ARTIFACTORY_PASS/g" $CI_PROJECT_DIR/src/nuget.config # //
+    - make publishImage
+  tags: [apps-apse2]
+
+test-sonar:
+  image: zipau-docker.jfrog.io/$SCAN_IMAGE_NAME:$SCAN_IMAGE_VERSION
+  stage: test
+  allow_failure: false
+  variables :
+    APP_NAME: api-customer-summary
+    NUGET_CONFIG_PATH_FILE_NAME : $CI_PROJECT_DIR/src/nuget.config # Path to nugget.config
+    SLN_PATH_FILE_NAME: $CI_PROJECT_DIR/Zip.Api.CustomerSummary.sln # Path to the solution tile
+  script:
+    - sed -i -e "s/PACKAGESUSERNAME/$ARTIFACTORY_USER/g" $CI_PROJECT_DIR/src/nuget.config # If you need publish/ import dotnet nugget from artifactory
+    - sed -i -e "s/PACKAGESPASSWORD/$ARTIFACTORY_PASS/g" $CI_PROJECT_DIR/src/nuget.config # //
+    - make dotnetScan
+  tags: [ apps-apse2 ]
+
+vuln-check:
+  image: zipau-docker.jfrog.io/$BUILD_IMAGE_NAME:$BUILD_IMAGE_VERSION
+  stage: test
+  allow_failure: true
+  variables:
+    APP_NAME: api-customer-summary
+  script:
+    - make jfrogXrayScan
+  tags: [apps-apse2]
+
+run-contract-tests:
+  image: zipau-docker.jfrog.io/pandit1981/node_awscli
+  stage: test
+  services:
+  - name: zipau-docker.jfrog.io/docker:dind
+    alias: docker
+  allow_failure: true
+  before_script:
+    - cd test/Zip.Api.CustomerSummary.ContractTests.Provider/contract-tests
+    - npm ci
+  script:
+    - npm run test:contract
+  tags: [ apps-apse2 ]
+
+deploy-labs-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-labs-app-infra
+  variables:
+    ENVIRONMENT: labs # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: labs-apse2-main
+    AWS_ACCOUNT_ID: 909149932173
+    INGRESS: hybrid-internal
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/labs.yaml
+    VAULT_SECRETS_PATH: labs-apse2-main/business-apps-and-support/app/zip-api-customersummary-labs # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - sed -i -e "s/NEW_RELIC_LICENSE_KEY_PLACE_HOLDER/$NON_PROD_NEW_RELIC_LICENSE_KEY/g" $CI_PROJECT_DIR/envVariables/dev.yaml # To add new relic key to application as env variable
+    - cat $CI_PROJECT_DIR/envVariables/labs.yaml
+    - make deploy
+  tags: [apps-apse2]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+undeploy-labs-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-labs-app-infra
+  variables:
+    ENVIRONMENT: labs # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: labs-apse2-main
+    AWS_ACCOUNT_ID: 909149932173
+    INGRESS: hybrid-internal
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/labs.yaml
+    VAULT_SECRETS_PATH: labs-apse2-main/business-apps-and-support/app/zip-api-customersummary-labs # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - make delete
+  tags: [apps-apse2]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+deploy-dev-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-dev-app-infra
+  variables:
+    ENVIRONMENT: dev # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: dev-apse2-main
+    AWS_ACCOUNT_ID: 801667767009
+    INGRESS: hybrid-internal
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/dev.yaml
+    VAULT_SECRETS_PATH: dev-apse2-main/business-apps-and-support/app/zip-api-customersummary-dev # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - sed -i -e "s/NEW_RELIC_LICENSE_KEY_PLACE_HOLDER/$NON_PROD_NEW_RELIC_LICENSE_KEY/g" $CI_PROJECT_DIR/envVariables/dev.yaml # To add new relic key to application as env variable
+    - cat $CI_PROJECT_DIR/envVariables/dev.yaml
+    - make deploy
+  tags: [apps-apse2]
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+undeploy-dev-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-dev-app-infra
+  variables:
+    ENVIRONMENT: dev # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: dev-apse2-main
+    AWS_ACCOUNT_ID: 801667767009
+    INGRESS: hybrid-internal
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/dev.yaml
+    VAULT_SECRETS_PATH: dev-apse2-main/business-apps-and-support/app/zip-api-customersummary-dev # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - make delete
+  tags: [apps-apse2]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+run-contract-tests-after-deploy-dev:
+  image: zipau-docker.jfrog.io/pandit1981/node_awscli
+  stage: test-after-deploy-dev
+  allow_failure: true
+  before_script:
+    - cd test/customerSummary.providerContractTest/contract-tests
+    - npm ci
+  script:
+    - npm run test:contract
+  dependencies: [ deploy-dev-app ]
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+  tags: [ apps-apse2 ]
+
+deploy-stag-app:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-stag-app-infra
+  variables:
+    ENVIRONMENT: stag # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: stag-apse2-main
+    AWS_ACCOUNT_ID: 199416428389
+    INGRESS: hybrid-office
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/stag.yaml
+    VAULT_SECRETS_PATH: stag-apse2-main/business-apps-and-support/app/zip-api-customersummary-stag # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    #- make -f deploy.mk kubectlDelete || true
+    - sed -i -e "s/NEW_RELIC_LICENSE_KEY_PLACE_HOLDER/$NON_PROD_NEW_RELIC_LICENSE_KEY/g" $CI_PROJECT_DIR/envVariables/stag.yaml # To add new relic key to application as env variable
+    - cat $CI_PROJECT_DIR/envVariables/stag.yaml
+    - make deploy
+  tags: [apps-apse2]
+  when: manual
+  only: [ develop ]
+
+undeploy-stag-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-stag-app-infra
+  variables:
+    ENVIRONMENT: stag # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: stag-apse2-main
+    AWS_ACCOUNT_ID: 199416428389
+    INGRESS: hybrid-internal
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/stag.yaml
+    VAULT_SECRETS_PATH: stag-apse2-main/business-apps-and-support/app/zip-api-customersummary-stag # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - make delete
+  tags: [apps-apse2]
+  when: manual
+  only: [ develop ]
+
+deploy-sand-app:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-sand-app-infra
+  variables:
+    ENVIRONMENT: sand # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: sand-apse2-main
+    AWS_ACCOUNT_ID: 875366158511
+    INGRESS: hybrid-office
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/sand.yaml
+    VAULT_SECRETS_PATH: sand-apse2-main/business-apps-and-support/app/zip-api-customersummary-sand # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - sed -i -e "s/NEW_RELIC_LICENSE_KEY_PLACE_HOLDER/$NON_PROD_NEW_RELIC_LICENSE_KEY/g" $CI_PROJECT_DIR/envVariables/sand.yaml # To add new relic key to application as env variable
+    - cat $CI_PROJECT_DIR/envVariables/sand.yaml
+    - make deploy
+  tags: [apps-apse2]
+  only: [ master ]
+
+undeploy-sand-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-sand-app-infra
+  variables:
+    ENVIRONMENT: sand # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: sand-apse2-main
+    AWS_ACCOUNT_ID: 875366158511
+    INGRESS: hybrid-office
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/sand.yaml
+    VAULT_SECRETS_PATH: sand-apse2-main/business-apps-and-support/app/zip-api-customersummary-sand # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - make delete
+  tags: [apps-apse2]
+  when: manual
+  only: [ master ]
+
+run-contract-tests-after-deploy-sand:
+  image: zipau-docker.jfrog.io/pandit1981/node_awscli
+  stage: test-after-deploy-sand
+  allow_failure: true
+  before_script:
+    - cd test/customerSummary.providerContractTest/contract-tests
+    - npm ci
+  script:
+    - npm run test:contract
+  dependencies: [ deploy-sand-app ]
+  only: [ master ]
+  tags: [ apps-apse2 ]
+
+deploy-prod-app:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-prod-app-infra
+  variables:
+    ENVIRONMENT: prod # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: prod-apse2-main
+    AWS_ACCOUNT_ID: 507110050534
+    INGRESS: hybrid-office
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/prod.yaml
+    VAULT_SECRETS_PATH: prod-apse2-main/business-apps-and-support/app/zip-api-customersummary-prod # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - sed -i -e "s/NEW_RELIC_LICENSE_KEY_PLACE_HOLDER/$NEW_RELIC_LICENSE_KEY/g" $CI_PROJECT_DIR/envVariables/prod.yaml # To add new relic key to application as env variable
+    - cat $CI_PROJECT_DIR/envVariables/prod.yaml
+    - make deploy
+  tags: [apps-apse2]
+  when: manual
+  only: [ /^release.*$/ ]
+
+undeploy-prod-app:
+  image: zipau-docker.jfrog.io/$DEPLOY_IMAGE_NAME:$DEPLOY_IMAGE_VERSION
+  stage: deploy-prod-app-infra
+  variables:
+    ENVIRONMENT: prod # other values are: sand, stag, prod
+    IAM_ROLE: "eks-business-apps-and-support-cs_summary_role"
+    EKS_CLUSTER_NAME: prod-apse2-main
+    AWS_ACCOUNT_ID: 875366158511
+    INGRESS: hybrid-office
+    APP_NAME: api-customer-summary
+    ENV_CONFIG: $CI_PROJECT_DIR/envVariables/prod.yaml
+    VAULT_SECRETS_PATH: prod-apse2-main/business-apps-and-support/app/zip-api-customersummary-sand # This will fetch secrets from vault and mount them to /home/vault/secrets.json
+  script:
+    - make delete
+  tags: [apps-apse2]
+  when: manual
+  only: [ /^release.*$/ ]

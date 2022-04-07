@@ -1,0 +1,87 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "identityServiceProxyProvider"
+  },
+  "interactions": [
+    {
+      "description": "Get request to return users by email",
+      "providerState": "it has the ability to return users json",
+      "request": {
+        "method": "GET",
+        "path": "/api/user/email",
+        "query": "email=max.bilichenko%40zip.co",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "id": "9a9d137c-3d15-4780-b2bb-b0c0219220dc",
+          "userName": "max.bilichenko@zip.co",
+          "email": "max.bilichenko@zip.co",
+          "isActive": true,
+          "roles": [
+            {
+              "id": "98cf96f8-f89a-4ca8-9cbe-ffbc44053393",
+              "name": "Admin"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "json error returns users by email",
+      "providerState": "it has the ability to return users json error message",
+      "request": {
+        "method": "GET",
+        "path": "/api/user/email",
+        "query": "email=bastest%40zip.co",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        },
+        "body": {
+          "message": "Unable to find User by email [bastest@zip.co]"
+        }
+      }
+    },
+    {
+      "description": "Get request to return users by empty email will return an error",
+      "providerState": "it has the ability to return validation error",
+      "request": {
+        "method": "GET",
+        "path": "/api/user/email",
+        "query": "email=",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": "Email [] is NullOrEmpty"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.2.2" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+    <PackageReference Include="Sendgrid" Version="9.12.0" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="Zip.Core" Version="1.0.1.99" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zip.Api.CustomerSummary.Domain\Zip.Api.CustomerSummary.Domain.csproj" />
+    <ProjectReference Include="..\Zip.Api.CustomerSummary.Infrastructure\Zip.Api.CustomerSummary.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

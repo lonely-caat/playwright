@@ -1,0 +1,12 @@
+apiVersion: skaffold/v1beta11
+kind: Config
+build:
+  artifacts:
+  - image: template
+    context: .
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - ./charts/zip-api-customerprofile/manifests/zip-api-customerprofile/templates/*.yaml

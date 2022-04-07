@@ -1,0 +1,471 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "customersServiceProvider"
+  },
+  "interactions": [
+    {
+      "description": "Put request to return customers profile data based on validation",
+      "providerState": "it has the ability to validate email by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "basTest@mailiantor.com"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return customers profile data based on validation for existing client",
+      "providerState": "it has the ability to validate email by customerid for existing client",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "max.bilichenko@zip.co"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "consumerIdsWithMatchingContact": [
+
+          ],
+          "duplicatedContactsExist": true,
+          "success": false,
+          "message": "The address max.bilichenko@zip.co is already in use."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return customers profile data based on validation with invalid email supplied",
+      "providerState": "it has the ability to validate invalid email by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": ""
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put email validate request to return data based on validation with invalid customerid supplied",
+      "providerState": "it has the ability to validate customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/10000000000000000000000000/email/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "basTest@mailiantor.com"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to update email",
+      "providerState": "it has the ability to update email by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "basTest2@mailiantor.com"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "duplicate email error",
+      "providerState": "it has the ability to update existing email by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "max.bilichenko@zip.co"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "invalid email error",
+      "providerState": "it has the ability to not return error for invalid email",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/email",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": ""
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "invalid customerid error",
+      "providerState": "it has the ability to not return error for invalid customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/10000000000000000000000000/email",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "EmailAddress": "basTest2@mailinator.com"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return customers profile data based on validation",
+      "providerState": "it has the ability to validate Mobile by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0400000000"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return customers profile data based on validation for existing client",
+      "providerState": "it has the ability to validate Mobile by customerid for existing client",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0423235237"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "consumerIdsWithMatchingContact": [
+            577370
+          ],
+          "duplicatedContactsExist": true,
+          "success": false,
+          "message": "The number 0423235237 is already in use."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return customers profile data based on validation with invalid Mobile supplied",
+      "providerState": "it has the ability to validate invalid Mobile by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": ""
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put validate mobile request to return data based on validation with invalid customerid supplied",
+      "providerState": "it has the ability to validate invalid customerid for mobile validate",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/10000000000000000000000000/mobile/validate",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0400000000"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to update Mobile",
+      "providerState": "it has the ability to update Mobile by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0400000000"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "duplicate Mobile error",
+      "providerState": "it has the ability to update existing Mobile by customerid",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0423235237"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "invalid Mobile error",
+      "providerState": "it has the ability to not return error for invalid phone number",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/1/mobile",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": ""
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "invalid customerid error",
+      "providerState": "it has the ability not to return error for invalid customer id",
+      "request": {
+        "method": "PUT",
+        "path": "/customer-api/v1/customers/10000000000000000000000000/mobile",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "PhoneNumber": "0400000000"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "duplicatedContactsExist": false,
+          "success": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

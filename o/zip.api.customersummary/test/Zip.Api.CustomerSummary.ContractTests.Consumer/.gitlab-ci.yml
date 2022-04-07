@@ -1,0 +1,16 @@
+stages:
+  - contract-tests
+
+run-contract-tests:
+  image: node:latest
+  stage: contract-tests
+
+  script:
+    - echo "$CLIENT_SECRET"
+    - npm ci
+    - npm run create:env
+    - npm run test:contract:e2e
+  artifacts:
+    when: always
+    paths:
+      - contract-tests/pacts

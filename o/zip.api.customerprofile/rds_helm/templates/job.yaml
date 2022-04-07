@@ -1,0 +1,69 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-{{ .Chart.Name }}"
+spec:
+  template:
+    metadata:
+      annotations:
+        fluentbit.io/exclude: "true"
+    spec:
+      serviceAccountName: vault-auth
+      volumes:
+        - name: vault-token
+          emptyDir:
+            medium: Memory
+        - name: vault-config
+          configMap:
+            name: vault-agent-config
+            items:
+              - key: vault-agent-config.hcl
+                path: vault-agent-config.hcl
+        - name: vault-ca-crt
+          secret:
+            secretName: vault-ca-crt
+            items:
+              - key: vault-ca.crt
+                path: vault-ca.crt
+      initContainers:
+        # Vault container
+        - name: vault-agent-auth
+          image: zipau-docker.jfrog.io/vault
+          volumeMounts:
+            - name: vault-config
+              mountPath: /etc/vault
+            - name: vault-token
+              mountPath: /home/vault
+            - name: vault-ca-crt
+              mountPath: /home/cert
+          env:
+            - name: VAULT_ADDR
+              value: "{{ .Values.vault.address }}"
+          args:
+            [
+              "agent",
+              "-config=/etc/vault/vault-agent-config.hcl",
+              "-log-level=debug",
+            ]
+      containers:
+        - name: vault
+          image: zipau-docker.jfrog.io/vault
+          securityContext:
+            capabilities:
+              add:
+                - IPC_LOCK
+          volumeMounts:
+            - name: vault-token
+              mountPath: /home/vault
+            - name: vault-ca-crt
+              mountPath: /home/cert
+          args: 
+            [
+              "kv",
+              "put", 
+               "-address={{ .Values.vault.address }}", 
+               "{{ .Values.vault.secret.location }}",
+               "dbUser={{ .Values.vault.secret.username }}",
+               "dbPassword={{ .Values.vault.secret.password }}"
+            ]
+      restartPolicy: Never

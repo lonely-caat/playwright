@@ -1,0 +1,16 @@
+envvars:
+    - name: ENVIRONMENT
+      desc: New Relic App env
+      tags:
+        - newrelic
+    - name: NEW_RELIC_APP_NAME
+      desc: New Relic App Name
+      tags: 
+        - newrelic
+    - name: NEW_RELIC_API_KEY
+      desc: New Relic API key for the environment being deployed to
+      tags:
+        - newrelic
+tags:
+    - name: newrelic
+      desc: New Relic related variables

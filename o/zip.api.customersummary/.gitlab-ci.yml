@@ -1,0 +1,23 @@
+stages:
+    - build
+    - test
+    - deploy-labs-app-infra
+    - deploy-dev-app-infra
+    - test-after-deploy-dev
+    - deploy-stag-app-infra
+    - deploy-sand-app-infra
+    - test-after-deploy-sand
+    - deploy-prod-app-infra
+
+variables:
+    BUILD_IMAGE_NAME: build-image
+    BUILD_IMAGE_VERSION : 2020-09-R1
+    SCAN_IMAGE_NAME: analyse-image
+    SCAN_IMAGE_VERSION : 2020-09-R1
+    DEPLOY_IMAGE_NAME: deploy-image
+    DEPLOY_IMAGE_VERSION : 2021-08-R2
+    TEAM : Business-Apps-And-Support-AU
+
+include:
+    - local: '/src/gl-pipeline.yml' # deploys the application/service (e.g. API)
+    - local: '/terraform/gl-pipeline.yml' # deploys aws infra resources (REMOVE THIS and /terraform UNLESS NEEDED!!!)

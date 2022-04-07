@@ -1,0 +1,9 @@
+
+EKS_CLUSTER_NAME=labs-apse2-main
+AWS_DEFAULT_REGION=ap-southeast-2
+AWS_ROLE=zip-role-ci-apps
+AWS_ACCOUNT_ID=909149932173
+HELM_TEMPLATE_VALUES=values-labs.yaml
+ENVIRONMENT=labs
+IMAGE_NAME=909149932173.dkr.ecr.ap-southeast-2.amazonaws.com/${APP_NAME}
+

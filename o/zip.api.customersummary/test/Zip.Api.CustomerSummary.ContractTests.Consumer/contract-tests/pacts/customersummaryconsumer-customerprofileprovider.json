@@ -1,0 +1,99 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "customerProfileProvider"
+  },
+  "interactions": [
+    {
+      "description": "Get request to return customer profile data based on query",
+      "providerState": "it should return valid graphql query data for a customer",
+      "request": {
+        "method": "GET",
+        "path": "/graphql/",
+        "query": "query=%7B+customerProfile%28id%3A+%220eb30d9e-102a-413e-9646-f042ad8e5476%22%29+%7B+FirstName%3A+givenName%2C+LastName%3A+familyName%2C+Gender%3A+gender%2C+driverLicence+%7B+id+state+%7D%2C+applications+%7B+applicationId+%7D%2C+DateOfBirth%3A+dateOfBirth%2C+mobilePhone+%7B+phoneNumber+%7D%2C+residentialAddress+%7B+suburb+state+postcode+streetNumber+streetName+unitNumber+countryCode+%7D+%7D+%7D",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "data": {
+            "customerProfile": [
+              {
+                "FirstName": "John",
+                "LastName": "Doe",
+                "Gender": "Male",
+                "driverLicence": {
+                  "id": "1111111111",
+                  "state": "VIC"
+                },
+                "applications": [
+                  {
+                    "applicationId": "441607"
+                  }
+                ],
+                "DateOfBirth": "2000-01-01",
+                "mobilePhone": {
+                  "phoneNumber": "412831825"
+                },
+                "residentialAddress": {
+                  "suburb": "BRIGHTON EAST",
+                  "state": "VIC",
+                  "postcode": "3187",
+                  "streetNumber": "1",
+                  "streetName": "Cheeseman Ave",
+                  "unitNumber": "",
+                  "countryCode": "AU"
+                }
+              }
+            ]
+          }
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return customer profile data based on query for a customer that does not exist",
+      "providerState": "it should return valid graphql query data for an unexisting customer",
+      "request": {
+        "method": "GET",
+        "path": "/graphql/",
+        "query": "query=%7B+customerProfile%28id%3A+%2211111111-1111-1111-1111-111111111111%22%29+%7B+FirstName%3A+givenName%2C+LastName%3A+familyName%2C+Gender%3A+gender%2C+driverLicence+%7B+id+state+%7D%2C+applications+%7B+applicationId+%7D%2C+DateOfBirth%3A+dateOfBirth%2C+mobilePhone+%7B+phoneNumber+%7D%2C+residentialAddress+%7B+suburb+state+postcode+streetNumber+streetName+unitNumber+countryCode+%7D+%7D+%7D",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "data": {
+            "customerProfile": [
+
+            ]
+          }
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

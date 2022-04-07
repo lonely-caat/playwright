@@ -1,0 +1,61 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "statementsApiServiceProvider"
+  },
+  "interactions": [
+    {
+      "description": "POST request to create statements record",
+      "providerState": "it has the ability to return correct status code",
+      "request": {
+        "method": "POST",
+        "path": "/statements/trigger",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "Accounts": [
+            "134"
+          ],
+          "Classification": "1",
+          "StatementDate": "2021-03-01"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    },
+    {
+      "description": "POST request to create statements record with invalid data",
+      "providerState": "it does not return error when trying to provide invalid data",
+      "request": {
+        "method": "POST",
+        "path": "/statements/trigger",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "Accounts": [
+            "noexist"
+          ],
+          "Classification": "noexist",
+          "StatementDate": "3029-63-21"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+vault:
+  address: #Set as an environment variable
+  secret:
+    username: #Set as an environment variable
+    password: #Set as an environment variable
+    location: #Set as an environment variable

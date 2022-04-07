@@ -1,0 +1,34 @@
+---
+execution:
+  - scenario: phone-lookup
+    hold-for: 15m
+
+scenarios:
+  phone-lookup:
+    script: customer_profile.jmx
+
+reporting:
+  - module: console
+  - module: final-stats
+    dump-csv: artifacts/stats.csv
+  - module: passfail
+    criteria:
+      - p90>5s for 1m
+      - p99.9>30s for 1m
+      - failures>50% for 3m, stop as failed
+  - module: junit-xml
+    data-source: pass-fail
+
+modules:
+  local:
+    sequential: false
+  jmeter:
+    gui: false
+    properties:
+      log_level.jmeter: WARN
+      log_level.jmeter.threads: DEBUG
+    system-properties:
+      sun.net.http.allowRestrictedHeaders: 'true'
+
+settings:
+  artifacts-dir: ./artifacts

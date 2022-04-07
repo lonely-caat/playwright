@@ -1,0 +1,5 @@
+EKS_CLUSTER_NAME=dev-apse2-main
+AWS_DEFAULT_REGION=ap-southeast-2
+AWS_ROLE=zip-role-ci-apps
+AWS_ACCOUNT_ID=801667767009
+HELM_TEMPLATE_VALUES=values-dev.yaml

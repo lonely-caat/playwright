@@ -1,0 +1,14 @@
+---
+version: effx/v1
+kind: team
+spec:
+  name: 'BAS'
+  description: 'Owners of Business Applications for Customers'
+  contact:
+    email: 'bassupport@zip.co'
+    chat:
+      label: '#bas-partners-support'
+      url: 'https://m11s.slack.com/archives/C01E19PPKN'
+    onCall:
+      label: 'on-call schedule'
+      url: 'https://zip.app.opsgenie.com/schedule/whoIsOnCall'

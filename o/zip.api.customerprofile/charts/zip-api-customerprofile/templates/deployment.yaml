@@ -1,0 +1,168 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zip-api-customerprofile.fullname" . }}
+  labels:
+{{ include "zip-api-customerprofile.labels" . | indent 4 }}  
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "zip-api-customerprofile.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "zip-api-customerprofile.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- if .Values.appVersion }}
+        app.kubernetes.io/version: {{ .Values.appVersion | quote }}
+      {{- end }}
+    {{- if .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{ if .Values.vaultAccess.enabled }}
+      serviceAccountName: vault-auth
+      volumes:
+            - name: vault-token
+              emptyDir:
+                medium: Memory
+            
+            - name: vault-config
+              configMap:
+                name: vault-agent-config
+                items:
+                  - key: vault-agent-config.hcl
+                    path: vault-agent-config.hcl
+
+            - name: shared-data
+              emptyDir: {}
+            
+            - name: vault-ca-crt
+              secret:
+                  secretName: vault-ca-crt
+                  items:
+                    - key: vault-ca.crt
+                      path: vault-ca.crt
+    
+      initContainers:
+            # Vault container
+            - name: vault-agent-auth
+              image: zipau-docker.jfrog.io/vault
+
+              volumeMounts:
+                - name: vault-config
+                  mountPath: /etc/vault
+                - name: vault-token
+                  mountPath: /home/vault
+                - name: vault-ca-crt
+                  mountPath: /etc/ssl/certs/vault-ca.crt
+                  subPath: vault-ca.crt
+                  readOnly: false
+                  
+              env:
+                - name: VAULT_ADDR
+                  value: https://vault.internal.mgmt.au.edge.zip.co
+
+              # Run the Vault agent
+              args:
+                [
+                  "agent",
+                  "-config=/etc/vault/vault-agent-config.hcl",
+                  "-log-level=debug",
+                  "-tls-skip-verify"
+                ]
+    {{ end }}
+
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "Application__Port"
+              value: "{{ .Values.container.port }}"
+            - name: "VAULT__SECRETPATH"
+              value: {{ .Values.vaultAccess.vaultSecretPath }}
+            - name: "PostgreSQL__Host"
+              value: {{ .Values.customerProfileDatabase.host }}
+            {{ if eq .Values.customerProfileDatabase.database "localDb" }}
+            - name: "PostgreSQL__Database"
+              value: {{ .Values.customerProfileDatabase.database }}
+            - name: "PostgreSQL__Username"
+              value: {{ .Values.customerProfileDatabase.username }}
+            - name: "PostgreSQL__Password"
+              value: {{ .Values.customerProfileDatabase.password }}
+            {{ end }}
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "{{ .Values.environment }}"
+            {{ if .Values.newRelic.enabled }}
+            - name: "NEW_RELIC_APP_NAME"  
+              value: {{ printf "%s-%s"  (include "zip-api-customerprofile.name" .) .Values.newRelic.env }}
+            - name: "NEW_RELIC_LICENSE_KEY"
+              valueFrom:
+                secretKeyRef:
+                  key: newRelicLicenseKey
+                  name: zip-api-newrelic-license-key
+            - name: "NEW_RELIC_LABELS"
+              value: {{ .Values.newRelic.labels }}
+            {{ end }}
+        {{ if .Values.vaultAccess.enabled }}
+          volumeMounts:
+            - name: vault-token
+              mountPath: /home/vault
+        {{ end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP
+          securityContext:
+            runAsUser: {{ .Values.securityContext.runAsUser }}
+            readOnlyRootFilesystem: {{ .Values.securityContext.readOnlyRootFilesystem }}
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - all
+        {{ if .Values.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+            periodSeconds: 15
+        {{ end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -1,0 +1,42 @@
+---
+execution:
+- concurrency: 20
+  ramp-up: 30s
+  hold-for: 2m
+  scenario: searchPage
+
+- concurrency: 20
+  ramp-up: 60s
+  hold-for: 3m
+  scenario: customerDetails
+
+scenarios:
+  searchPage:
+    requests:
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/accounts?keyword=
+
+
+  customerDetails:
+    requests:
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/countries
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/products
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/consumers/171906
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/consumers/171906/account
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/contacts/171906
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/crmcomments/171906?count=100
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/payments?accountId=126362
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/paymentmethods/latest?consumerId=171906
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/transactions?consumerId=171906
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/accounts/126362/repayment
+      - https://api-customer-summary.internal.sand.au.edge.zip.co/api/accounts/126362/lmstransactions
+
+reporting:
+  - module: passfail
+    summary: true
+    percentiles: true
+    summary-labels: false
+    failed-labels: false
+    test-duration: true
+    criteria:
+      - avg-rt >1s for 20s, stop as failed
+      - fail >10% for 10s, stop as failed

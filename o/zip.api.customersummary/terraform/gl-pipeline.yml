@@ -1,0 +1,202 @@
+## - Add terraform variables with prefix TF_VAR_
+
+variables:
+    APP_NAME: api-customer-summary # Application name
+    TERRAFORM_DIR: $CI_PROJECT_DIR/terraform # Location of your terraform scripts
+    TF_BUCKET_NAME: ziptfstate-terraform-backend
+    TF_KEY_NAME: zip-api-customersummary-state
+    TF_ROLE_ARN: 'arn:aws:iam::417599609871:role/ziptfstate-terraform-backend'
+    TF_REGION: 'ap-southeast-2'
+    TF_LOCK_TABLE_NAME: ziptfstate-terraform-lock
+
+deploy-labs-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-labs-app-infra
+  variables:
+    ENVIRONMENT: labs
+    AWS_ACCOUNT_ID: 909149932173 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_environment: labs
+    TF_VAR_oidc_id : 17FE29DB17CBC9F5EB64C887D27216B3
+  script:
+    - make deploy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+destroy-labs-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-labs-app-infra
+  variables:
+    ENVIRONMENT: labs
+    AWS_ACCOUNT_ID: 909149932173 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_env: labs
+    TF_VAR_dns_suffix: au.edge.zip.co
+  script:
+    - make destroy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+deploy-dev-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-dev-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 801667767009 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_environment: dev
+    TF_VAR_oidc_id : F3975B5F5946EE158FC8323B831B23B0
+  script:
+    - make deploy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+destroy-dev-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-dev-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 801667767009 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_env: dev
+    TF_VAR_dns_suffix: au.edge.zip.co
+  script:
+    - make destroy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ /^feature.*$/, /^fix.*$/, develop ]
+
+deploy-stag-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-stag-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 199416428389 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_environment: stag
+    TF_VAR_oidc_id : 7506BAD8C5A065952F1445CAC595DF06
+  script:
+    - make deploy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ develop ]
+
+destroy-stag-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-stag-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 199416428389 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_env: stag
+    TF_VAR_dns_suffix: au.edge.zip.co
+  script:
+    - make destroy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ develop ]
+  
+deploy-sand-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-sand-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 875366158511 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_environment: sand
+    TF_VAR_oidc_id : 9E9B31AD9C7F99E4431153543C7D4349
+  script:
+    - make deploy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ master ]
+
+destroy-sand-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-sand-app-infra
+  variables:
+    ENVIRONMENT: default
+    AWS_ACCOUNT_ID: 875366158511 # The AWS Account ID where the infra will be deployed
+    TF_VAR_app_name: api-customer-summary
+    TF_VAR_namespace: business-apps-and-support
+    TF_VAR_team: BAS
+    TF_VAR_env: sand
+    TF_VAR_dns_suffix: au.edge.zip.co
+  script:
+    - make destroy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ master ]
+
+deploy-prod-infra:
+  image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+  stage: deploy-prod-app-infra
+  variables:
+      ENVIRONMENT: default
+      AWS_ACCOUNT_ID: 507110050534 # The AWS Account ID where the infra will be deployed
+      TF_VAR_app_name: api-customer-summary
+      TF_VAR_namespace: business-apps-and-support
+      TF_VAR_team: BAS
+      TF_VAR_environment: prod
+      TF_VAR_oidc_id : AFFD58FE3484F5347F51E398B5F519FE
+  script:
+      - make deploy-infra
+  tags: [ apps-apse2 ]
+  when: manual
+  only: [ /^release.*$/ ]
+
+# destroy-prod-infra:
+#   image: zipau-docker.jfrog.io/deploy-image:$DEPLOY_IMAGE_VERSION
+#   stage: deploy-prod-app-infra
+#   variables:
+#     ENVIRONMENT: prod
+#     AWS_ACCOUNT_ID: 507110050534 # The AWS Account ID where the infra will be deployed
+#     TF_VAR_app_name: api-customer-summary
+#     TF_VAR_namespace: business-apps-and-support
+#     TF_VAR_team: BAS
+#     TF_VAR_env: prod
+#     TF_VAR_dns_suffix: au.edge.zip.co
+#   script:
+#     - make destroy-infra
+#   tags: [ apps-apse2 ]
+#   when: manual
+#   only: [ /^release.*$/ ]
+
+# NOTES
+###################################################################################
+#
+# 1. The base image uses a shared S3 bucket and DDB table for managing the state.
+#    This is managed transparently, so you do not need to specify a tf backend.
+#    The generated back-end is as follows :
+#          TABLE_NAME=terraform-lock-$(ACC_ID)
+#          BUCKET_NAME=terraform-state-$(ACC_ID)
+#          KEY_NAME=$(CI_PROJECT_NAMESPACE)/$(CI_PROJECT_NAME)
+#
+# 2. If you are migrating from an existing repo or have already a backend,
+#    you are able to use the same back-end by specifying the following variables
+#        - TF_BUCKET_NAME : The name of the bucket
+#        - TF_LOCK_TABLE_NAME : The name of the dynamoDB table
+#        - TF_KEY_NAME : The S3 key used for storing the state
+#
+#
+# 3. The base image also allows for destroying infrastructure resources, for this
+#    use the command: make destroy-infra
+#
+#

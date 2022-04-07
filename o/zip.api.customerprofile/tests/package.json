@@ -1,0 +1,38 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "api tests",
+  "main": "index.js",
+  "scripts": {
+    "test44444": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 jest",
+    "test:labs": "node runner.js labs",
+    "test:dev": "node runner.js dev",
+    "test:stag": "node runner.js stag",
+    "test:perf": "node runner.js perf",
+    "test:sand": "node runner.js sand"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(.api/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  },
+  "author": "Alok",
+  "license": "ISC",
+  "devDependencies": {
+    "@hapi/joi": "^16.1.7",
+    "cross-env": "^5.2.1",
+    "frisby": "^2.1.2",
+    "graphql": "^14.4.2",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {}
+}

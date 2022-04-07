@@ -1,0 +1,884 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "tangoProvider"
+  },
+  "interactions": [
+    {
+      "description": "Get request to return account data",
+      "providerState": "it has the ability to return accounts json",
+      "request": {
+        "method": "GET",
+        "path": "/api/accounts/123",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "AccountHash": "123",
+          "AccountWithCheckDigit": "1230",
+          "Arrears120": 0,
+          "Arrears120Balance": 0,
+          "Arrears150": 0,
+          "Arrears150Balance": 0,
+          "Arrears179": 0,
+          "Arrears179Balance": 0,
+          "Arrears180Plus": 0,
+          "Arrears180PlusBalance": 0,
+          "Arrears30": 0,
+          "Arrears30Balance": 0,
+          "Arrears60": 0,
+          "Arrears60Balance": 0,
+          "Arrears90": 0,
+          "Arrears90Balance": 0,
+          "Arrears90Plus": 0,
+          "Arrears90PlusBalance": 0,
+          "ArrearsBalanceAsAt": 200,
+          "ArrearsDays": 0,
+          "ArrearsEqualsNet": false,
+          "AvailableLoanCreditLimit": -656,
+          "AvailableLoanLimit": 2344,
+          "BusinessCode": "ZMLOC001",
+          "ClientName": "Mr Larry Three",
+          "ContractualFrequencyAsAt": "Y",
+          "ContractualMinimumAmountDueAsAt": 40,
+          "DateEntered": "2013-12-13T00:00:00",
+          "DaysInArrearsAsAt": 864,
+          "Deposit": 0,
+          "DirectDebitAmountDueAsAt": 88,
+          "DirectDebitFrequencyAsAt": "M",
+          "DirectDebitNextDateDueAsAt": "2021-04-14T00:00:00",
+          "EnteredByUser": "TangoApiService",
+          "GeneralPurpose1": "No Further Drawdown",
+          "HistoryReconciledTo": "2013-11-30T00:00:00",
+          "HoldProcessing": false,
+          "InstalmentDate": "2014-01-13T00:00:00",
+          "InterestFreeBalance": 0,
+          "InterestRate": 19.9,
+          "InterestRateOnDate": 19.9,
+          "LastInterestRunDate": "2014-04-30T00:00:00",
+          "LoanAccountNumber": 66957,
+          "LoanLimit": 3000,
+          "LoanStatus": "A",
+          "NetBalance": 22,
+          "NetBalanceAsAt": 22,
+          "NextDirectDebitAmountDue": 88,
+          "NextDirectDebitDateDue": "2021-04-14T00:00:00",
+          "NextDue": "2018-11-30T00:00:00",
+          "NumberRemainingPaymentsAsAt": 0,
+          "ODIChargesOutstanding": 0,
+          "OriginalTerm": 1,
+          "PrePayment": 0,
+          "ProposedVariationPeriodType": 1,
+          "PurchasePrice": 0,
+          "RateChangeDateEntered": "2018-10-31T00:00:00",
+          "RateChangeNewRate": 19.9,
+          "RateChangeNewRateDate": "2018-12-01T00:00:00",
+          "RateChangeNewRepayment": 40,
+          "RateChangeNewRepaymentDate": "2018-11-30T00:00:00",
+          "RateChangeOldRate": 19.9,
+          "RateChangeOldRepayment": 0,
+          "RepaymentAmount": 40,
+          "ResidualValue": -17.64,
+          "SettlementDate": "2013-12-13T00:00:00",
+          "SettlementStatus": "N",
+          "SubLoanAccountHash": "123_1",
+          "Term": 1,
+          "TotalDrawDowns": 4,
+          "TotalRepayments": 0,
+          "upsize_ts": "AAAAAADDJ9g=",
+          "YieldRate": 0,
+          "AccountPaidOff": null,
+          "ActivatedByUser": null,
+          "Applicant1ClientNumber": null,
+          "Applicant1Score": null,
+          "Applicant2ClientNumber": null,
+          "Applicant2Score": null,
+          "ApplicationID": null,
+          "ArearsToDate": null,
+          "ArrearsAdjustments": null,
+          "ArrearsIncludePenalties": null,
+          "AssetsManagedByClient": null,
+          "BankAccountName": null,
+          "BankAccountNumber": null,
+          "BankBSB": null,
+          "BankName": null,
+          "BatchNumber": null,
+          "BorrowersSolicitor": null,
+          "BranchName": null,
+          "BrokenInterest": null,
+          "BuildingImprovementValue": null,
+          "BureauCorrectionDate": null,
+          "ChargeableSubledgerCharges": null,
+          "ChequeNumber": null,
+          "Classification1": null,
+          "Classification2": null,
+          "Classification3": null,
+          "Classification4": null,
+          "CompletionDate": null,
+          "ConstructionPeriod": null,
+          "ContractualAmountDueAsAt": null,
+          "ContractualNextDueDateAsAt": null,
+          "CreditLimit": null,
+          "CreditorAccountNumber": null,
+          "CreditReportingAccountStatus": null,
+          "CreditReportingComplianceConditionCode": null,
+          "CreditReportingPaymentRating": null,
+          "CreditReportingSpecialCommentCode": null,
+          "CycloneUpgrading": null,
+          "DateActivated": null,
+          "DefaultAccelerated": null,
+          "DefaultAmount": null,
+          "DefaultEffectiveDate": null,
+          "DefaultStatusDate": null,
+          "DefaultStatusType": null,
+          "DeferInterestUntil": null,
+          "DefermentStatusID": null,
+          "Deposit1": null,
+          "Deposit2": null,
+          "DepreciationMethod": null,
+          "DepreciationOpeningBalance": null,
+          "DepreciationRate": null,
+          "DepreciationStart": null,
+          "Description": null,
+          "DirectDebitAdditionalAmount": null,
+          "DirectDebitCancelsSchedule": null,
+          "DirectDebitDeferUntil": null,
+          "DirectDebitFixedAmount": null,
+          "DirectDebitInterimAmount": null,
+          "DirectDebitInterimExpiryDate": null,
+          "DirectDebitNominatedDate": null,
+          "DirectDebitRepaymentMethod": null,
+          "DirectDebitsIncludeSpecialCharges": null,
+          "DirectDebitStopUntil": null,
+          "DisbursementDate": null,
+          "DoesBorrowerOwnAssets": null,
+          "ExpiredRepaymentVariationCancelsDirectDebits": null,
+          "FixedPrincipalRepaymentAmount": null,
+          "FlatInterestRate": null,
+          "GeneralPurpose10": null,
+          "GeneralPurpose11": null,
+          "GeneralPurpose12": null,
+          "GeneralPurpose13": null,
+          "GeneralPurpose14": null,
+          "GeneralPurpose15": null,
+          "GeneralPurpose16": null,
+          "GeneralPurpose17": null,
+          "GeneralPurpose18": null,
+          "GeneralPurpose19": null,
+          "GeneralPurpose2": null,
+          "GeneralPurpose20": null,
+          "GeneralPurpose21": null,
+          "GeneralPurpose22": null,
+          "GeneralPurpose23": null,
+          "GeneralPurpose3": null,
+          "GeneralPurpose4": null,
+          "GeneralPurpose5": null,
+          "GeneralPurpose6": null,
+          "GeneralPurpose7": null,
+          "GrossInterest": null,
+          "GuaranteedAmount": null,
+          "HoldActivation": null,
+          "HoldCorrespondence": null,
+          "HoldDirectDebits": null,
+          "HoldInterest": null,
+          "InsurancePolicyNumber": null,
+          "InsuranceRenewalDate": null,
+          "Insurer": null,
+          "IntendedTerminationDate": null,
+          "InterestAccrued": null,
+          "InterestInAdvanceDate": null,
+          "InterestOnlyPeriod": null,
+          "InternalResidualPosition": null,
+          "InvestmentFundingAccountNumber": null,
+          "isInDefault": null,
+          "IsMortgage": null,
+          "LandValue": null,
+          "LastInvoiceDate": null,
+          "LastMonthEndDate": null,
+          "LastPaymentAmount": null,
+          "LastPaymentDate": null,
+          "LastPayoutQuoteAmount": null,
+          "LifeInsuranceExpiry": null,
+          "LifeInsurer": null,
+          "LoanStatus2": null,
+          "Location1": null,
+          "Location2": null,
+          "MarketResidualPosition": null,
+          "MarketValue": null,
+          "MortageDishchargeDate": null,
+          "MortgageApprovalDate": null,
+          "MTDPayments": null,
+          "MTDSubledger": null,
+          "NetBalanceQuoted": null,
+          "NewInterestRate": null,
+          "NonLoanBalance": null,
+          "ODIChargesQuoted": null,
+          "ODIFee": null,
+          "ODIRate": null,
+          "OverrideAutoPay": null,
+          "OverrideBankAccountName": null,
+          "OverrideBankAccountSuffix": null,
+          "OverrideBankAccountTypeID": null,
+          "OverrideBankBSB": null,
+          "OverrideBankName": null,
+          "OverrideBranchName": null,
+          "OverrideClientBankAccountNumber": null,
+          "OverrideConcurrentWithSchedule": null,
+          "OverrideCreditCardAmexId": null,
+          "OverrideCreditCardExpiryMMYY": null,
+          "OverrideCreditCardNumber": null,
+          "OverrideCreditCardType": null,
+          "OverrideGetsInvoices": null,
+          "OverrideIsDistinct": null,
+          "OverrideNameOnCreditCard": null,
+          "OverridePayByCreditor": null,
+          "OverridePayByCreditCard": null,
+          "OverrideRepaymentAmount": null,
+          "OverrideRepaymentMethod": null,
+          "PayoutInterestRebateMonths": null,
+          "PayoutValidToDate": null,
+          "ProposedVariationDays": null,
+          "RebateAmount": null,
+          "RecencyDate": null,
+          "RefinanceLoanAccountNumber": null,
+          "RefinanceLoanAmount": null,
+          "RepaymentSource": null,
+          "RepaymentVariationEnd": null,
+          "RepaymentVariationStart": null,
+          "ReplacementAccountHash": null,
+          "ReplacementAccountHash2": null,
+          "ResidualCharges": null,
+          "SecurityAddress1": null,
+          "SecurityAddress2": null,
+          "SecurityPostcode": null,
+          "SecurityState": null,
+          "SecurityTown": null,
+          "StatementCycleID": null,
+          "StopInterestAfter": null,
+          "Structured": null,
+          "SundryChargesQuoted": null,
+          "TitleReference": null,
+          "TotalFinanced": null,
+          "TotalSubledger": null,
+          "TradingName": null,
+          "TransferAccountNumber": null,
+          "TransferAccountSubID": null,
+          "TransferDate": null,
+          "TransferReason": null,
+          "TransferSignatoryId": null,
+          "TransferSignatoryRole": null,
+          "TransferSignatorySubId": null,
+          "UnlockActiveRepaymentSchedule": null,
+          "ValuationDate": null,
+          "VariationHasPrecedence": null,
+          "VariationOnLastDayOfMonth": null,
+          "YieldRate2": null
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return account data for asAtDate query string",
+      "providerState": "it has the ability to return accounts json by asAtDate query string",
+      "request": {
+        "method": "GET",
+        "path": "/api/accounts/123",
+        "query": "asAtDate=01-AUG-2020",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "AccountHash": "123",
+          "AccountWithCheckDigit": "1230",
+          "Arrears120": 0,
+          "Arrears120Balance": 0,
+          "Arrears150": 0,
+          "Arrears150Balance": 0,
+          "Arrears179": 0,
+          "Arrears179Balance": 0,
+          "Arrears180Plus": 0,
+          "Arrears180PlusBalance": 0,
+          "Arrears30": 0,
+          "Arrears30Balance": 0,
+          "Arrears60": 0,
+          "Arrears60Balance": 0,
+          "Arrears90": 0,
+          "Arrears90Balance": 0,
+          "Arrears90Plus": 0,
+          "Arrears90PlusBalance": 0,
+          "ArrearsBalanceAsAt": 200,
+          "ArrearsDays": 0,
+          "ArrearsEqualsNet": false,
+          "AvailableLoanCreditLimit": -656,
+          "AvailableLoanLimit": 2344,
+          "BusinessCode": "ZMLOC001",
+          "ClientName": "Mr Larry Three",
+          "ContractualFrequencyAsAt": "Y",
+          "ContractualMinimumAmountDueAsAt": 40,
+          "DateEntered": "2013-12-13T00:00:00",
+          "DaysInArrearsAsAt": 610,
+          "Deposit": 0,
+          "DirectDebitAmountDueAsAt": 88,
+          "DirectDebitFrequencyAsAt": "M",
+          "DirectDebitNextDateDueAsAt": "2021-02-14T00:00:00",
+          "EnteredByUser": "TangoApiService",
+          "GeneralPurpose1": "No Further Drawdown",
+          "HistoryReconciledTo": "2013-11-30T00:00:00",
+          "HoldProcessing": false,
+          "InstalmentDate": "2014-01-13T00:00:00",
+          "InterestFreeBalance": 0,
+          "InterestRate": 19.9,
+          "InterestRateOnDate": 19.9,
+          "LastInterestRunDate": "2014-04-30T00:00:00",
+          "LoanAccountNumber": 66957,
+          "LoanLimit": 3000,
+          "LoanStatus": "A",
+          "NetBalance": 22,
+          "NetBalanceAsAt": 22,
+          "NextDirectDebitAmountDue": 88,
+          "NextDirectDebitDateDue": "2021-02-14T00:00:00",
+          "NextDue": "2018-11-30T00:00:00",
+          "NumberRemainingPaymentsAsAt": 0,
+          "ODIChargesOutstanding": 0,
+          "OriginalTerm": 1,
+          "PrePayment": 0,
+          "ProposedVariationPeriodType": 1,
+          "PurchasePrice": 0,
+          "RateChangeDateEntered": "2018-10-31T00:00:00",
+          "RateChangeNewRate": 19.9,
+          "RateChangeNewRateDate": "2018-12-01T00:00:00",
+          "RateChangeNewRepayment": 40,
+          "RateChangeNewRepaymentDate": "2018-11-30T00:00:00",
+          "RateChangeOldRate": 19.9,
+          "RateChangeOldRepayment": 0,
+          "RepaymentAmount": 40,
+          "ResidualValue": -17.64,
+          "SettlementDate": "2013-12-13T00:00:00",
+          "SettlementStatus": "N",
+          "SubLoanAccountHash": "123_1",
+          "Term": 1,
+          "TotalDrawDowns": 4,
+          "TotalRepayments": 0,
+          "upsize_ts": "AAAAAADDJ9g=",
+          "YieldRate": 0,
+          "AccountPaidOff": null,
+          "ActivatedByUser": null,
+          "Applicant1ClientNumber": null,
+          "Applicant1Score": null,
+          "Applicant2ClientNumber": null,
+          "Applicant2Score": null,
+          "ApplicationID": null,
+          "ArearsToDate": null,
+          "ArrearsAdjustments": null,
+          "ArrearsIncludePenalties": null,
+          "AssetsManagedByClient": null,
+          "BankAccountName": null,
+          "BankAccountNumber": null,
+          "BankBSB": null,
+          "BankName": null,
+          "BatchNumber": null,
+          "BorrowersSolicitor": null,
+          "BranchName": null,
+          "BrokenInterest": null,
+          "BuildingImprovementValue": null,
+          "BureauCorrectionDate": null,
+          "ChargeableSubledgerCharges": null,
+          "ChequeNumber": null,
+          "Classification1": null,
+          "Classification2": null,
+          "Classification3": null,
+          "Classification4": null,
+          "CompletionDate": null,
+          "ConstructionPeriod": null,
+          "ContractualAmountDueAsAt": null,
+          "ContractualNextDueDateAsAt": null,
+          "CreditLimit": null,
+          "CreditorAccountNumber": null,
+          "CreditReportingAccountStatus": null,
+          "CreditReportingComplianceConditionCode": null,
+          "CreditReportingPaymentRating": null,
+          "CreditReportingSpecialCommentCode": null,
+          "CycloneUpgrading": null,
+          "DateActivated": null,
+          "DefaultAccelerated": null,
+          "DefaultAmount": null,
+          "DefaultEffectiveDate": null,
+          "DefaultStatusDate": null,
+          "DefaultStatusType": null,
+          "DeferInterestUntil": null,
+          "DefermentStatusID": null,
+          "Deposit1": null,
+          "Deposit2": null,
+          "DepreciationMethod": null,
+          "DepreciationOpeningBalance": null,
+          "DepreciationRate": null,
+          "DepreciationStart": null,
+          "Description": null,
+          "DirectDebitAdditionalAmount": null,
+          "DirectDebitCancelsSchedule": null,
+          "DirectDebitDeferUntil": null,
+          "DirectDebitFixedAmount": null,
+          "DirectDebitInterimAmount": null,
+          "DirectDebitInterimExpiryDate": null,
+          "DirectDebitNominatedDate": null,
+          "DirectDebitRepaymentMethod": null,
+          "DirectDebitsIncludeSpecialCharges": null,
+          "DirectDebitStopUntil": null,
+          "DisbursementDate": null,
+          "DoesBorrowerOwnAssets": null,
+          "ExpiredRepaymentVariationCancelsDirectDebits": null,
+          "FixedPrincipalRepaymentAmount": null,
+          "FlatInterestRate": null,
+          "GeneralPurpose10": null,
+          "GeneralPurpose11": null,
+          "GeneralPurpose12": null,
+          "GeneralPurpose13": null,
+          "GeneralPurpose14": null,
+          "GeneralPurpose15": null,
+          "GeneralPurpose16": null,
+          "GeneralPurpose17": null,
+          "GeneralPurpose18": null,
+          "GeneralPurpose19": null,
+          "GeneralPurpose2": null,
+          "GeneralPurpose20": null,
+          "GeneralPurpose21": null,
+          "GeneralPurpose22": null,
+          "GeneralPurpose23": null,
+          "GeneralPurpose3": null,
+          "GeneralPurpose4": null,
+          "GeneralPurpose5": null,
+          "GeneralPurpose6": null,
+          "GeneralPurpose7": null,
+          "GrossInterest": null,
+          "GuaranteedAmount": null,
+          "HoldActivation": null,
+          "HoldCorrespondence": null,
+          "HoldDirectDebits": null,
+          "HoldInterest": null,
+          "InsurancePolicyNumber": null,
+          "InsuranceRenewalDate": null,
+          "Insurer": null,
+          "IntendedTerminationDate": null,
+          "InterestAccrued": null,
+          "InterestInAdvanceDate": null,
+          "InterestOnlyPeriod": null,
+          "InternalResidualPosition": null,
+          "InvestmentFundingAccountNumber": null,
+          "isInDefault": null,
+          "IsMortgage": null,
+          "LandValue": null,
+          "LastInvoiceDate": null,
+          "LastMonthEndDate": null,
+          "LastPaymentAmount": null,
+          "LastPaymentDate": null,
+          "LastPayoutQuoteAmount": null,
+          "LifeInsuranceExpiry": null,
+          "LifeInsurer": null,
+          "LoanStatus2": null,
+          "Location1": null,
+          "Location2": null,
+          "MarketResidualPosition": null,
+          "MarketValue": null,
+          "MortageDishchargeDate": null,
+          "MortgageApprovalDate": null,
+          "MTDPayments": null,
+          "MTDSubledger": null,
+          "NetBalanceQuoted": null,
+          "NewInterestRate": null,
+          "NonLoanBalance": null,
+          "ODIChargesQuoted": null,
+          "ODIFee": null,
+          "ODIRate": null,
+          "OverrideAutoPay": null,
+          "OverrideBankAccountName": null,
+          "OverrideBankAccountSuffix": null,
+          "OverrideBankAccountTypeID": null,
+          "OverrideBankBSB": null,
+          "OverrideBankName": null,
+          "OverrideBranchName": null,
+          "OverrideClientBankAccountNumber": null,
+          "OverrideConcurrentWithSchedule": null,
+          "OverrideCreditCardAmexId": null,
+          "OverrideCreditCardExpiryMMYY": null,
+          "OverrideCreditCardNumber": null,
+          "OverrideCreditCardType": null,
+          "OverrideGetsInvoices": null,
+          "OverrideIsDistinct": null,
+          "OverrideNameOnCreditCard": null,
+          "OverridePayByCreditor": null,
+          "OverridePayByCreditCard": null,
+          "OverrideRepaymentAmount": null,
+          "OverrideRepaymentMethod": null,
+          "PayoutInterestRebateMonths": null,
+          "PayoutValidToDate": null,
+          "ProposedVariationDays": null,
+          "RebateAmount": null,
+          "RecencyDate": null,
+          "RefinanceLoanAccountNumber": null,
+          "RefinanceLoanAmount": null,
+          "RepaymentSource": null,
+          "RepaymentVariationEnd": null,
+          "RepaymentVariationStart": null,
+          "ReplacementAccountHash": null,
+          "ReplacementAccountHash2": null,
+          "ResidualCharges": null,
+          "SecurityAddress1": null,
+          "SecurityAddress2": null,
+          "SecurityPostcode": null,
+          "SecurityState": null,
+          "SecurityTown": null,
+          "StatementCycleID": null,
+          "StopInterestAfter": null,
+          "Structured": null,
+          "SundryChargesQuoted": null,
+          "TitleReference": null,
+          "TotalFinanced": null,
+          "TotalSubledger": null,
+          "TradingName": null,
+          "TransferAccountNumber": null,
+          "TransferAccountSubID": null,
+          "TransferDate": null,
+          "TransferReason": null,
+          "TransferSignatoryId": null,
+          "TransferSignatoryRole": null,
+          "TransferSignatorySubId": null,
+          "UnlockActiveRepaymentSchedule": null,
+          "ValuationDate": null,
+          "VariationHasPrecedence": null,
+          "VariationOnLastDayOfMonth": null,
+          "YieldRate2": null
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request will return an error message string",
+      "providerState": "it has the ability to return error string",
+      "request": {
+        "method": "GET",
+        "path": "/api/accounts/1",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        },
+        "body": "Account with given id does not exist.",
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return variations data for query string parameters",
+      "providerState": "it has the ability to return variations json by query string params",
+      "request": {
+        "method": "GET",
+        "path": "/api/variations",
+        "query": "AccountHash=403655&OverrideRepaymentAmount=40.0000&RepaymentVariationStart=2021-03-31",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "AccountHash": "403655",
+            "DirectDebitID": 83215,
+            "IsDistinct": null,
+            "LoanAccountNumber": 225913,
+            "OverrideConcurrentWithSchedule": null,
+            "OverrideRepaymentAmount": 40,
+            "OverrideRepaymentMethod": "M",
+            "RepaymentVariationEnd": "2099-01-01T00:00:00",
+            "RepaymentVariationStart": "2021-03-31T00:00:00",
+            "VariationHasPrecedence": true,
+            "WhoEntered": null,
+            "WhoUpdated": null,
+            "DateEntered": null,
+            "DateUpdated": null
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return variations data for query string parameters where accountHash does not exist",
+      "providerState": "it has the ability to return empty array for unexisting account hash value",
+      "request": {
+        "method": "GET",
+        "path": "/api/variations",
+        "query": "AccountHash=1",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Post request to create a new variations record",
+      "providerState": "it has the ability to create a new record and return that record data",
+      "request": {
+        "method": "POST",
+        "path": "/api/variations",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "AccountHash": "403520",
+          "OverrideRepaymentAmount": "40.0000",
+          "RepaymentVariationStart": "2021-04-11",
+          "RepaymentVariationEnd": "2091-04-11"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "AccountHash": "403520",
+            "DirectDebitID": 84508,
+            "IsDistinct": null,
+            "LoanAccountNumber": 225645,
+            "OverrideConcurrentWithSchedule": null,
+            "OverrideRepaymentAmount": 40,
+            "OverrideRepaymentMethod": null,
+            "RepaymentVariationEnd": "2091-04-11T00:00:00",
+            "RepaymentVariationStart": "2021-04-11T00:00:00",
+            "VariationHasPrecedence": null,
+            "WhoEntered": null,
+            "WhoUpdated": null,
+            "DateEntered": null,
+            "DateUpdated": null
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Post request with invalid body to create a new variations record",
+      "providerState": "it has the ability to return validation error with validation message",
+      "request": {
+        "method": "POST",
+        "path": "/api/variations",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "Message": "The request is invalid.",
+          "ModelState": {
+            "Item": [
+              "Required property 'OverrideRepaymentAmount' not found in JSON. Path '', line 1, position 2."
+            ],
+            "Item.AccountHash": [
+              "The AccountHash field is required."
+            ],
+            "Item.RepaymentVariationEnd": [
+              "The RepaymentVariationEnd field is required."
+            ],
+            "Item.RepaymentVariationStart": [
+              "The RepaymentVariationStart field is required."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return variations data by Direct Debit id",
+      "providerState": "it has the ability to return variations json by Direct Debit id",
+      "request": {
+        "method": "GET",
+        "path": "/api/variations/12345",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "AccountHash": "25573",
+            "DirectDebitID": 12345,
+            "IsDistinct": null,
+            "LoanAccountNumber": 95823,
+            "OverrideConcurrentWithSchedule": null,
+            "OverrideRepaymentAmount": 80,
+            "OverrideRepaymentMethod": "M",
+            "RepaymentVariationEnd": "2099-01-01T00:00:00",
+            "RepaymentVariationStart": "2018-10-11T00:00:00",
+            "VariationHasPrecedence": true,
+            "WhoEntered": null,
+            "WhoUpdated": "zp_adm_dev",
+            "DateEntered": null,
+            "DateUpdated": "2018-10-12T11:42:52.69"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Get request to return variations data by unexisting Direct Debit id",
+      "providerState": "it has the ability to error string for an unexisting direct debit id",
+      "request": {
+        "method": "GET",
+        "path": "/api/variations/0",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        },
+        "body": "Variation with given id does not exist.",
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return variations data after modification",
+      "providerState": "it has the ability to edit existing variations",
+      "request": {
+        "method": "PUT",
+        "path": "/api/variations/666",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "AccountHash": "1929828",
+          "DirectDebitId": "666",
+          "OverrideRepaymentAmount": "1.0000",
+          "RepaymentVariationStart": "2021-04-11",
+          "RepaymentVariationEnd": "2091-04-11"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "AccountHash": "403653",
+            "DirectDebitID": 666,
+            "IsDistinct": null,
+            "LoanAccountNumber": 225909,
+            "OverrideConcurrentWithSchedule": null,
+            "OverrideRepaymentAmount": 1,
+            "OverrideRepaymentMethod": "M",
+            "RepaymentVariationEnd": "2091-04-11T00:00:00",
+            "RepaymentVariationStart": "2021-04-11T00:00:00",
+            "VariationHasPrecedence": true,
+            "WhoEntered": null,
+            "WhoUpdated": "TangoApiService",
+            "DateEntered": null,
+            "DateUpdated": "2021-04-21T17:52:59.46"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Put request to return variations json validation error",
+      "providerState": "it has the ability to return error for unmatching directdebitid",
+      "request": {
+        "method": "PUT",
+        "path": "/api/variations/666",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "AccountHash": "621",
+          "OverrideRepaymentAmount": "1.0000",
+          "RepaymentVariationStart": "2021-04-11",
+          "RepaymentVariationEnd": "2055-03-10"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "Message": "ID and DirectDebitID do not match"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

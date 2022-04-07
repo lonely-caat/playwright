@@ -1,0 +1,79 @@
+envvars:
+  - name: AWS_ACCESS_KEY_ID
+    desc: AWS access key
+    optional: true
+    tags:
+      - aws
+  - name: AWS_SECRET_ACCESS_KEY
+    desc: AWS secret key
+    optional: true
+    tags:
+      - aws
+  - name: AWS_SESSION_TOKEN
+    desc: Assume role variable
+    optional: true
+    tags:
+      - aws
+  - name: AWS_DEFAULT_REGION
+    desc: AWS region
+    tags:
+      - aws
+  - name: AWS_ACCOUNT_ID
+    desc: AWS account ID for assume-role script
+    tags:
+      - assume-role
+  - name: AWS_ROLE
+    desc: AWS account ID for assume-role script
+    tags:
+      - assume-role
+  - name: EKS_CLUSTER_NAME
+    desc: EKS Kubnernetes Cluster Name
+    tags:
+      - kubernetes
+  - name: WORKSPACE
+    desc: workspace
+    tags:
+      - workspace
+  - name: TF_VAR_DATABASE_NAME
+    desc: database name
+    tags:
+      - dbpassword
+      - workspace
+  - name: TF_VAR_APP_HOST_HEADER
+    desc: route53 database host header
+    tags:
+      - workspace
+  - name: TF_VAR_DATABASE_USERNAME
+    desc: database username
+    tags:
+      - dbpassword
+      - workspace
+  - name: TF_VAR_NAMESPACE
+    desc: kubernetes namespace, used by helm chart and terraform iam role creation
+    tags:
+      - dbpassword
+      - workspace
+  - name: DATABASE_PASSWORD
+    desc: database password
+    tags:
+      - dbpassword
+    optional: true
+  - name: HELM_TILLER_SILENT
+    desc: no helm tillerless plugin logs
+    tags:
+      - dbpassword
+  - name: VAULT_ADDRESS
+    desc: address of vault server
+    tags:
+      - dbpassword
+tags:
+  - name: aws
+    desc: AWS credentials
+  - name: assume-role
+    desc: Target for assume-role
+  - name: kubernetes
+    desc: Kubernetes variables
+  - name: workspace
+    desc: Workspace variables
+  - name: dbpassword
+    desc: Database password to be set

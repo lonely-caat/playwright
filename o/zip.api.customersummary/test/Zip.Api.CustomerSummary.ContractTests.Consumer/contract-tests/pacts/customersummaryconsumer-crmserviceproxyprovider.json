@@ -1,0 +1,309 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "crmServiceProxyProvider"
+  },
+  "interactions": [
+    {
+      "description": "POST request to create comment",
+      "providerState": "it has the ability to create comment json",
+      "request": {
+        "method": "POST",
+        "path": "/api/comment",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ReferenceId": 12345678,
+          "Category": 1,
+          "Type": 1,
+          "CommentBy": "basTest",
+          "Detail": "testing bas products"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "id": 62369,
+          "type": 1,
+          "typeString": "Consumer",
+          "category": 1,
+          "categoryString": "Support",
+          "referenceId": 12345678,
+          "detail": "testing bas products",
+          "timeStamp": "2021-04-08T21:04:53.123",
+          "commentBy": "basTest"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "POST request to create comment without all required fields",
+      "providerState": "it has the ability to return required fields validation error",
+      "request": {
+        "method": "POST",
+        "path": "/api/comment",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ReferenceId": "",
+          "Category": "",
+          "Type": "",
+          "CommentBy": "",
+          "Detail": ""
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "errors": {
+            "ReferenceId": [
+              "Error converting value \"\" to type 'System.Int64'. Path 'ReferenceId', line 2, position 28."
+            ]
+          },
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "traceId": "|de6ca570-4f5ca9e8b951b096."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "POST request to create comment with invalid fields data",
+      "providerState": "it has the ability to return invalid  values validation error",
+      "request": {
+        "method": "POST",
+        "path": "/api/comment",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ReferenceId": "test",
+          "Category": "test",
+          "Type": "test",
+          "CommentBy": "1",
+          "Detail": "1"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "errors": {
+            "Type": [
+              "Error converting value \"test\" to type 'System.Nullable`1[Zip.Api.CRM.Api.Models.CommentType]'. Path 'Type', line 4, position 25."
+            ],
+            "Category": [
+              "Error converting value \"test\" to type 'System.Nullable`1[Zip.Api.CRM.Api.Models.CommentCategory]'. Path 'Category', line 3, position 29."
+            ],
+            "ReferenceId": [
+              "Error converting value \"test\" to type 'System.Int64'. Path 'ReferenceId', line 2, position 32."
+            ]
+          },
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "traceId": "|de6ca583-4f5ca9e8b951b096."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "GET request to return comment data",
+      "providerState": "it has the ability to return comment data",
+      "request": {
+        "method": "GET",
+        "path": "/api/comment/customer/123456",
+        "query": "pageIndex=1&pageSize=100",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "totalCount": 4,
+          "current": 1,
+          "pageSize": 100,
+          "totalPages": 1,
+          "items": [
+            {
+              "id": 201036,
+              "type": 1,
+              "typeString": "Consumer",
+              "category": 0,
+              "categoryString": "General",
+              "referenceId": 123456,
+              "detail": "Comment: test",
+              "timeStamp": "2021-02-09T20:42:56.95",
+              "commentBy": "shan.ke@zip.co"
+            },
+            {
+              "id": 196576,
+              "type": 1,
+              "typeString": "Consumer",
+              "category": 0,
+              "categoryString": "General",
+              "referenceId": 123456,
+              "detail": "Comment: test",
+              "timeStamp": "2020-10-29T11:43:55.593",
+              "commentBy": "shan.ke@zip.co"
+            },
+            {
+              "id": 196257,
+              "type": 1,
+              "typeString": "Consumer",
+              "category": 9,
+              "categoryString": "Risk",
+              "referenceId": 123456,
+              "detail": "Comment: <NFD Lock> Auto lock by system. Rule: TransactionEmailExists. Reason: High velocity on new account (check range:90 days) over 3 orders within 2 days. Account review required or successful payment history demonstrated. Order timestamp history: 2017-02-25T16:23:03, 2017-02-25T17:40:54, 2017-02-25T18:25:06, 2017-02-27T16:10:49Attribute(s) in black list: Email:zip.developer1@mailinator.com(BadCredit),PhoneNumber:0401010101(BadCredit)",
+              "timeStamp": "2020-10-15T09:15:09.973",
+              "commentBy": "system"
+            },
+            {
+              "id": 67623,
+              "type": 1,
+              "typeString": "Consumer",
+              "category": 9,
+              "categoryString": "Risk",
+              "referenceId": 123456,
+              "detail": "Comment: test data",
+              "timeStamp": "2018-11-26T17:31:51.507",
+              "commentBy": "minh.nguyen@zip.co"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "GET request to return comment data for unexisting customerid",
+      "providerState": "it has the ability to return comment data regardless of unexisting customer id",
+      "request": {
+        "method": "GET",
+        "path": "/api/comment/customer/958635923592",
+        "query": "pageIndex=1&pageSize=100",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "totalCount": 0,
+          "current": 1,
+          "pageSize": 100,
+          "totalPages": 0,
+          "items": [
+
+          ]
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "GET request to return comment data with invalid customer id",
+      "providerState": "it has the ability to return comment data validation error",
+      "request": {
+        "method": "GET",
+        "path": "/api/comment/customer/test",
+        "query": "pageIndex=1&pageSize=100",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "errors": {
+            "customerId": [
+              "The value 'test' is not valid."
+            ]
+          },
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "traceId": "|3815d843-4eec38002f1b4e6a."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "GET request to return comment data with invalid params",
+      "providerState": "it has the ability to return comment parameters validation error",
+      "request": {
+        "method": "GET",
+        "path": "/api/comment/customer/test",
+        "query": "pageIndex=0&pageSize=0",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "traceId": "|9710c9e6-4f19f3e6b256fb4a.",
+          "errors": {
+            "customerId": [
+              "The value 'test' is not valid."
+            ]
+          }
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

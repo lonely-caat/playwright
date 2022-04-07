@@ -1,0 +1,60 @@
+# fe-server related
+.npmrc
+
+# dotenv .env files should not be commited to version control
+.env
+
+# Dependency directories
+/node_modules
+/jspm_packages
+
+# Optional npm cache directory
+/.npm
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+*.tmp
+*.tmp_proj
+
+### VisualStudioCode ###
+.vscode
+
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+### OSX ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Contract Tests Related
+**/pacts/
+**/mochawesome-report/
+**/logs/

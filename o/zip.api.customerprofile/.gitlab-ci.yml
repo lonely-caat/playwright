@@ -1,0 +1,164 @@
+image: zipau-docker.jfrog.io/jfrog/musketeers:latest
+
+services:
+  - name: zipau-docker.jfrog.io/docker:dind  # sidecar that actually runs the Docker daemon
+    command: [ "--registry-mirror=https://registry.internal.mgmt.au.edge.zip.co" ]
+    alias: docker
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+  - build
+  - deploy-labs
+  - deploy-dev
+  - contract-test
+  - deploy-stage
+  - deploy-performance
+  - performance-test
+  - deploy-sandbox
+  - deploy-prod
+
+test-and-publish:
+  stage: build
+  variables:
+    ARTIFACTORY_URL: https://zipau.jfrog.io/zipau
+    DOCKER_REPOSITORY_KEY: docker
+  script:
+    - make test publish | while IFS= read -r line; do printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$line"; done
+  artifacts:
+    paths:
+      - results.xml
+      - coverage.opencover.xml
+    reports:
+      junit: results.xml
+  tags: [ apps-terraform ]
+
+deploy-labs:
+  stage: deploy-labs
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: labs
+  variables:
+    ENVIRONMENT: labs
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: NON_PROD_NEW_RELIC_LICENSE_KEY
+    SECURITY_GROUP_ID: sg-013ea0e3ecb7e8d78
+    TEST_URL: https://api-customerprofile.internal.labs.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual # We don't want reset automatically
+
+reset-rds-password-labs:
+  stage: deploy-labs
+  dependencies: []
+  variables:
+    ENVIRONMENT: labs
+  script:
+    - make setPassword
+  tags: [ apps-terraform ]
+  when: manual # We don't want reset automatically. If this step fail, need to create new step to trigger deleteFailedVaultChart
+
+deploy-dev:
+  stage: deploy-dev
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: dev
+  variables:
+    ENVIRONMENT: dev
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: NON_PROD_NEW_RELIC_LICENSE_KEY
+    SECURITY_GROUP_ID: sg-054cabc32a756cbe3
+    TEST_URL: https://api-customerprofile.internal.dev.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual
+
+run-contract-tests:
+  image: node:latest
+  stage: contract-test
+  environment:
+    name: dev
+  allow_failure: true
+  before_script:
+    - cd tests/zip.api.customerprofile.providercontracttest/contract-tests
+    - npm ci
+  script:
+    - npm run test:contract
+  tags: [ apps-terraform ]
+
+deploy-stage:
+  stage: deploy-stage
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: stag
+  variables:
+    ENVIRONMENT: stag
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: NON_PROD_NEW_RELIC_LICENSE_KEY
+    TEST_URL: https://api-customerprofile.internal.stag.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual
+
+deploy-performance:
+  stage: deploy-performance
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: perf
+  variables:
+    ENVIRONMENT: perf
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: PROD_NEW_RELIC_LICENSE_KEY
+    TEST_URL: https://api-customerprofile.internal.perf.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual
+
+perf-test:
+  stage: performance-test
+  when: manual
+  dependencies:
+    - deploy-performance
+  script:
+    - make perfTest
+  tags: [apps]
+  allow_failure: true
+  artifacts:
+    paths:
+      - tests/perf/artifacts/
+
+deploy-sandbox:
+  stage: deploy-sandbox
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: sand
+  variables:
+    ENVIRONMENT: sand
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: PROD_NEW_RELIC_LICENSE_KEY
+    TEST_URL: https://api-customerprofile.internal.sand.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual
+
+deploy-prod:
+  stage: deploy-prod
+  dependencies:
+    - test-and-publish
+  environment: 
+    name: prod
+  variables:
+    ENVIRONMENT: prod
+    CI_NEW_RELIC_LICENSE_KEY_TYPE: PROD_NEW_RELIC_LICENSE_KEY
+    SECURITY_GROUP_ID: sg-07f75e842b42e686a
+    TEST_URL: https://api-customerprofile.internal.prod.au.edge.zip.co/health
+  script:
+    - make assumeRoleInDeployinatorForDeployment deploy smokeTest
+  tags: [ apps-terraform ]
+  when: manual

@@ -1,0 +1,17 @@
+MANAGEMENT_AWS_ACCOUNT_ID=267396992358
+APP_NAME=api-customer-summary
+IMAGE_NAME=${MANAGEMENT_AWS_ACCOUNT_ID}.dkr.ecr.ap-southeast-2.amazonaws.com/${APP_NAME}
+DOCKER_IMAGE=${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}
+AWS_ROLE=zip-role-ci-apps
+AWS_DEFAULT_REGION=ap-southeast-2
+TEAM=BizApps
+NAMESPACE=business-apps-and-support
+ARTIFACT_DIR=artifacts
+HELM_DIR=src/charts/api-customer-summary
+HELM_OUTPUT_DIR=${HELM_DIR}/manifests
+K8S_MANIFEST_DIR=${HELM_OUTPUT_DIR}/api-customer-summary/templates
+TARBALL=${ARTIFACT_DIR}/${APP_NAME}_${CI_COMMIT_SHORT_SHA}.tar
+DEPLOYINATOR_ECR_IMAGE=267396992358.dkr.ecr.ap-southeast-2.amazonaws.com/deployinator:76cdb28e
+DEPLOYINATOR_TARBALL=${ARTIFACT_DIR}/deployinator.tar
+NEW_RELIC_LICENSE_KEY=db63de9a381dec4795681d513b7053ae731ddfda
+VERSION=3.5.0

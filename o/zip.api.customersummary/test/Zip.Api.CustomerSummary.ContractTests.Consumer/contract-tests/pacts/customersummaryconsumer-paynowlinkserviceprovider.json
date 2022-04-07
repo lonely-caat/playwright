@@ -1,0 +1,110 @@
+{
+  "consumer": {
+    "name": "customerSummaryConsumer"
+  },
+  "provider": {
+    "name": "payNowLinkServiceProvider"
+  },
+  "interactions": [
+    {
+      "description": "Post request to return paynow link",
+      "providerState": "it has the ability to return countries json",
+      "request": {
+        "method": "POST",
+        "path": "/api/paynowlink/consumer",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ConsumerId": 577370,
+          "Amount": 0.01
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "payNowUrl": "https://go.dev.au.edge.zip.co/a202311b",
+          "reference": "paynow:zipPay:419598:1617946142"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Post request to return paynow link with values as strings",
+      "providerState": "it has the ability to return an obscure validation error for invalid data type",
+      "request": {
+        "method": "POST",
+        "path": "/api/paynowlink/consumer",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ConsumerId": "577370",
+          "Amount": "0.01"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+        },
+        "body": {
+          "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+          "title": "One or more validation errors occurred.",
+          "status": 400,
+          "traceId": "|2f176482-47ca3112073db711.",
+          "errors": {
+            "$.ConsumerId": [
+              "The JSON value could not be converted to System.Int64. Path: $.ConsumerId | LineNumber: 0 | BytePositionInLine: 22."
+            ]
+          }
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "Post request to return paynow link with unexisting consumer id value",
+      "providerState": "it has the ability to return validation error for unexisting consumer id",
+      "request": {
+        "method": "POST",
+        "path": "/api/paynowlink/consumer",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "ConsumerId": 1,
+          "Amount": 0.01
+        }
+      },
+      "response": {
+        "status": 500,
+        "headers": {
+        },
+        "body": {
+          "statusCode": 500,
+          "statusDescription": "InternalServerError",
+          "message": "consumer id 1 not found."
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

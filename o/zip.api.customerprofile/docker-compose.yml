@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  terraform:
+    image: cmdlabs/terraform-utils:4.1.0
+    env_file: .env
+    entrypoint: []
+    volumes:
+      - .:/work
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+    working_dir: /work/terraform
+
+  kubernetes:
+    image: cmdlabs/eks-utils:0.7.0
+    env_file: .env
+    working_dir: /work
+    volumes:
+      - .:/work
+      - ~/.kube:/root/.kube
+      - ~/.helm/repository:/root/.helm/repository
+
+  aws:
+    image: cmdlabs/aws-utils:1.0.2
+    entrypoint: []
+    env_file: .env
+    working_dir: /work
+    volumes:
+      - .:/work:Z
+
+  envvars:
+    image: flemay/envvars:0.0.6
+    env_file: .env
+    working_dir: /work
+    volumes:
+      - .:/work

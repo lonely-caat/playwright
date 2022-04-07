@@ -1,0 +1,95 @@
+# Default values for zip-api-customerprofile.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+probes:
+  enabled: true
+
+vaultAccess:
+  enabled: true
+  url: "https://vault.internal.mgmt.au.edge.zip.co"
+  vaultSecretPath: "perf-apse2-main/customer-acquisition/zip-customerprofileresources"
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 300m
+      memory: 64Mi
+
+podAnnotations:
+  iam.amazonaws.com/role: eks-customer-acquisition-zip_processor_customerprofile_role
+
+image:
+  pullPolicy: IfNotPresent
+
+dbMigration:
+  resources:
+    limits:
+      memory: 256Mi
+    requests:
+      cpu: 300m
+      memory: 256Mi
+ 
+imagePullSecrets:
+  - name: artifactory-sec
+nameOverride: ""
+fullnameOverride: ""
+
+container:
+  port: 5000
+
+securityContext:
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 5001
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: hybrid-internal
+  hosts:
+    - host: api-customerprofile.internal.perf.au.edge.zip.co
+      paths:
+        - /
+
+  tls:
+    - secretName: zip-api-customerprofile-tls
+      issuerRef:
+        name: vault-issuer
+        kind: ClusterIssuer
+      hosts:
+        - "api-customerprofile.internal.perf.au.edge.zip.co"
+
+resources:
+  limits:
+    memory: 4Gi
+  requests:
+    cpu: 1000m
+    memory: 1Gi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+customerProfileDatabase:
+  useInMemoryDatabase: false
+  host: db-customerprofileres.internal.perf.au.edge.zip.co
+  database: CustomerProfileResourceDb
+  username: postgres
+
+newRelic:
+  enabled: true
+  labels: Environment:perf
+  env: perf
+
+autoscaling:
+  enabled: true
+  minReplicas: 5
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 55
+  targetMemoryUtilizationPercentage: 75
