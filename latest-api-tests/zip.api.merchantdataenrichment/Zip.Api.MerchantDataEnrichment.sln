@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B6FD962-665B-4D2F-973E-01185E36E5EE}"
+	ProjectSection(SolutionItems) = preProject
+		src\.dockerignore = src\.dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.gitlab-ci.yml = .gitlab-ci.yml
+		Directory.Build.props = Directory.Build.props
+		src\Dockerfile = src\Dockerfile
+		src\Dockerfile_dev = src\Dockerfile_dev
+		src\gl-pipeline.yml = src\gl-pipeline.yml
+		MinimumRecommendedRulesWithStyleCop.ruleset = MinimumRecommendedRulesWithStyleCop.ruleset
+		nuget.config = nuget.config
+		README.md = README.md
+		src\skaffold-dev.yaml = src\skaffold-dev.yaml
+		src\skaffold-run.yaml = src\skaffold-run.yaml
+		effx.yaml = effx.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{94453B3A-20B7-460E-AE25-FFFFD624FF22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1BFA9A46-004F-4A26-8E19-AB664725785E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F20D7C97-FD65-4299-A3E7-DE5A40CB22BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9E616C39-D1B9-4437-8DF3-6BED1E581CDD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.Api.MerchantDataEnrichment.Test", "test\Zip.Api.MerchantDataEnrichment.Test\Zip.Api.MerchantDataEnrichment.Test.csproj", "{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.MerchantDataEnrichment.Application", "src\Zip.MerchantDataEnrichment.Application\Zip.MerchantDataEnrichment.Application.csproj", "{300FB2CB-D0E9-4A77-8A83-E56AD18AD725}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.MerchantDataEnrichment.Domain", "src\Zip.MerchantDataEnrichment.Domain\Zip.MerchantDataEnrichment.Domain.csproj", "{296B4F1B-1415-4E7B-A578-0245E72BD0C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.MerchantDataEnrichment.Infrastructure", "src\Zip.MerchantDataEnrichment.Infrastructure\Zip.MerchantDataEnrichment.Infrastructure.csproj", "{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.MerchantDataEnrichment.Persistence", "src\Zip.MerchantDataEnrichment.Persistence\Zip.MerchantDataEnrichment.Persistence.csproj", "{8DA8D6A7-82E2-415B-83EC-7804392A2E06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zip.Api.MerchantDataEnrichment", "src\Zip.Api.MerchantDataEnrichment\Zip.Api.MerchantDataEnrichment.csproj", "{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{300FB2CB-D0E9-4A77-8A83-E56AD18AD725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{300FB2CB-D0E9-4A77-8A83-E56AD18AD725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{300FB2CB-D0E9-4A77-8A83-E56AD18AD725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{300FB2CB-D0E9-4A77-8A83-E56AD18AD725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296B4F1B-1415-4E7B-A578-0245E72BD0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296B4F1B-1415-4E7B-A578-0245E72BD0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296B4F1B-1415-4E7B-A578-0245E72BD0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296B4F1B-1415-4E7B-A578-0245E72BD0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA8D6A7-82E2-415B-83EC-7804392A2E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA8D6A7-82E2-415B-83EC-7804392A2E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA8D6A7-82E2-415B-83EC-7804392A2E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA8D6A7-82E2-415B-83EC-7804392A2E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F20D7C97-FD65-4299-A3E7-DE5A40CB22BF} = {94453B3A-20B7-460E-AE25-FFFFD624FF22}
+		{9E616C39-D1B9-4437-8DF3-6BED1E581CDD} = {94453B3A-20B7-460E-AE25-FFFFD624FF22}
+		{A6DBC8F7-47BC-47C7-AF68-A2FA0A1EB157} = {1BFA9A46-004F-4A26-8E19-AB664725785E}
+		{300FB2CB-D0E9-4A77-8A83-E56AD18AD725} = {F20D7C97-FD65-4299-A3E7-DE5A40CB22BF}
+		{296B4F1B-1415-4E7B-A578-0245E72BD0C8} = {F20D7C97-FD65-4299-A3E7-DE5A40CB22BF}
+		{080D604E-4D3B-4E6F-8860-ED5BCD0FBF7E} = {9E616C39-D1B9-4437-8DF3-6BED1E581CDD}
+		{8DA8D6A7-82E2-415B-83EC-7804392A2E06} = {9E616C39-D1B9-4437-8DF3-6BED1E581CDD}
+		{8D8F0C9F-22BC-4F7A-B23B-B78458391BDC} = {94453B3A-20B7-460E-AE25-FFFFD624FF22}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9962EAB7-6E11-4986-96F5-F5795A7E085E}
+	EndGlobalSection
+EndGlobal

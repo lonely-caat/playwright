@@ -1,0 +1,37 @@
+{
+  "merchantDetail": {
+    "id": "b69f8bc8-6aa7-4b1d-8de7-2cc0c7668df3",
+    "cardAcceptorLocator": "BOWERY LANE SYDNEY",
+    "name": "Bowery Lane",
+    "abn": "71165522396",
+    "acn": "165522396",
+    "description": "Sydney city-goers: Bowery Lane is your Manhattan-inspired hot-spot for locally sourced fresh food Single Origin coffee boutique cocktails & craft beers.",
+    "singleLineAddress": "4/1 O'Connell St, Sydney NSW 2000, Australia",
+    "state": "NSW",
+    "postcode": "2000",
+    "suburb": "Sydney",
+    "longitude": 151.209942,
+    "latitude": -33.86457,
+    "phone": "(02) 9221 9349",
+    "email": "reservations@bowerylane.com.au",
+    "merchantUrl": "http://www.bowerylane.com.au",
+    "categoryId": 3,
+    "categoryName": "Food/Drink",
+    "logoHeight": 0,
+    "logoWidth": 0,
+    "merchantStatus": "Active",
+    "entityType": "PRV",
+    "merchantType": "Stand-Alone",
+    "merchantPresence": "Bricks & Mortar",
+    "lwcGuid": "4a45b02e-bff7-4261-b744-f944761ff6c0",
+    "establishedDateTime": "2013-01-01T00:00:00+00:00",
+    "recentUpdatedDateTime": "2020-09-23T11:03:00+00:00",
+    "createdDateTime": "2020-12-01T01:09:41.88335+00:00",
+    "merchantCardAcceptorLocators": [{
+      "cardAcceptorLocator": "BOWERY LANE SYDNEY",
+      "createdDateTime": "2021-11-10T01:08:56.361427+00:00",
+      "id": "5229613a-caa4-4135-bb95-66433cdda672",
+      "merchantDetailId": "b69f8bc8-6aa7-4b1d-8de7-2cc0c7668df3"
+    }]
+  }
+}

@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp3.1\Zip.Api.MerchantDataEnrichment.Test\.xml</DocumentationFile>
+    <OutputPath>bin\Debug\netcoreapp3.1</OutputPath>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\release\netcoreapp3.1</OutputPath>
+    <DocumentationFile>bin\release\netcoreapp3.1\Zip.Api.MerchantDataEnrichment.Test.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.14.0" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.14.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="Moq.Dapper" Version="1.0.3" />
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.7.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="1.2.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="JUnitTestLogger" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="9.0.4" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Zip.Api.MerchantDataEnrichment\Zip.Api.MerchantDataEnrichment.csproj" />
+    <ProjectReference Include="..\..\src\Zip.MerchantDataEnrichment.Application\Zip.MerchantDataEnrichment.Application.csproj" />
+    <ProjectReference Include="..\..\src\Zip.MerchantDataEnrichment.Domain\Zip.MerchantDataEnrichment.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Zip.MerchantDataEnrichment.Infrastructure\Zip.MerchantDataEnrichment.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Zip.MerchantDataEnrichment.Persistence\Zip.MerchantDataEnrichment.Persistence.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+{
+    "merchantForDirector" : {
+    "merchantUniqueId": "74c26fcb-4e11-43c4-ba50-ff0ea1bff504",
+    "merchantEmail" : "directordocs@mailinator.com"
+    },
+    "merchantForContactDirectorDetails": {
+        "merchantUniqueId" : "74324b4b-d1e2-4ff6-9b43-e2d6ee74b623",
+        "merchantEmail" : "test35954884@mailinator.com"
+    },
+    "merchantWithSubmittedProfile": {
+        "merchantUniqueId" : "28cf7622-162d-45dd-aebb-6e4ee9a76ce9",
+        "merchantEmail" : "greenshadycloud@maillinator.com"
+    }
+}

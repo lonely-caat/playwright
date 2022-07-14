@@ -1,0 +1,26 @@
+execution:
+  - concurrency: 10000
+    ramp-up: 30s
+    hold-for: 2m
+    scenario: getMerchantInfo
+    throughput: 30
+    steps: 20
+
+scenarios:
+  getMerchantInfo:
+    requests:
+      - url: https://zip-api-merchantdataenrichment.internal.dev.au.edge.zip.co/api/v1/Merchant/lookup-merchantDetail?cardAcceptorName=Bowery%20Lane&cardAcceptorCity=Sydney
+        method: GET
+        headers:
+          Content-Type: application/json
+
+reporting:
+  - module: passfail
+    summary: true
+    percentiles: true
+    summary-labels: false
+    failed-labels: false
+    test-duration: true
+    criteria:
+      - avg-rt >10.0s for 20s, stop as failed
+      - fail >10% for 10s, stop as failed

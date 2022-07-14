@@ -1,0 +1,32 @@
+{
+	"FileName": "testimage.jpg",
+    // Data is an image file upload, in frontend there'\''s a "Choose file" button, which generates all this
+{
+    "optional_fields":
+	[
+        "primary_address",
+        "primary_contacts",
+        "primary_category",
+        "primary_merchant_description",
+        "legal_business_info",
+        "chain_lwc_guid",
+        "merchant_logo"
+	],
+    "search_options": {
+        "remove_sensitive_merchants": true,
+        "remove_address_for_internet_mobile_merchants": false,
+        "search_timeout_milliseconds": 200,
+        "substitute_categories": false
+    },
+    "bank_transactions": [
+        {
+		    "cal": "JFC STRATHFIELD PL STRATHFIELD",
+            "transaction_correlation_guid": "71c13922-0b32-46c7-8499-29cfaa9d5160"
+        },
+                {
+		    "cal": "Hungry Jacks Circular Quay",
+            "transaction_correlation_guid": "71c13922-0b32-46c7-8499-29cfaa9d5161"
+        },
+    ]
+}
+}

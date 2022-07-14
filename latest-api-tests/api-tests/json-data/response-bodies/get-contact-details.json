@@ -1,0 +1,16 @@
+{
+    "primaryContactDetails": {
+        "contactType": 1,
+        "isPrimary": true,
+        "fullName": "testusersydney",
+        "contactEmail": "testonetwothree123@mailinator.com",
+        "contactNumber": "0400000000"
+    },
+    "directorDetails": {
+        "contactType": 0,
+        "isPrimary": false,
+        "fullName": "DirectorOfCompany",
+        "contactEmail": "directorofmycompany@mailinator.com",
+        "contactNumber": "0400000000"
+    }
+}

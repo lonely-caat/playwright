@@ -1,0 +1,10 @@
+{
+    "inProgressMerchantProfile": {
+            "profile": {
+                "submitted": false
+            },
+            "director": "Completed",
+            "contact": "Completed",
+            "settlement": "NotStarted"
+    }
+}

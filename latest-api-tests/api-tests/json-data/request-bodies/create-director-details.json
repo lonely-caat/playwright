@@ -1,0 +1,39 @@
+{
+  "positive_data": {
+    "unitNumber": "null",
+    "streetNumber": "1001",
+    "streetName": "Spring",
+    "suburb": "Wynyard",
+    "postcode": "2000",
+    "state": "NSW",
+    "fullName": "DirectorOfCompany",
+    "contactEmail": "directorofmycompany@mailinator.com",
+    "contactNumber": "0400000000"
+  },
+  "negative_data": {
+    "invalid_name": {
+      "sameAsDirectorDetails": false,
+      "fullName": "%$#^#^",
+      "contactEmail": "testonetwothree123@mailinator.com",
+      "contactNumber": "0400000000",
+      "isPrimary": true,
+      "contactType": 1
+    },
+    "invalid_email": {
+      "sameAsDirectorDetails": false,
+      "fullName": "testusersydney",
+      "contactEmail": "...@mailinator.com",
+      "contactNumber": "0400000000",
+      "isPrimary": true,
+      "contactType": 1
+    },
+    "invalid_contact": {
+      "sameAsDirectorDetails": false,
+      "fullName": "testusersydney",
+      "contactEmail": "testonetwothree123@mailinator.com",
+      "contactNumber": "00000400000000",
+      "isPrimary": true,
+      "contactType": 1
+    }
+  }
+}

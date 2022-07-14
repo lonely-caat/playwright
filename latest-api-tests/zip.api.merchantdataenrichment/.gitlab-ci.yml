@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+  - perf-test
+  - api-tests
+  - deploy-labs-app-infra
+  - deploy-dev-app-infra
+  - deploy-stag-app-infra
+  - deploy-sand-app-infra
+  - deploy-perf-app-infra
+  - deploy-prod-app-infra
+
+variables:
+    BUILD_IMAGE_NAME: build-image
+    BUILD_IMAGE_VERSION : 2020-11-R1
+    SCAN_IMAGE_NAME: analyse-image
+    SCAN_IMAGE_VERSION : 2020-11-R1
+    DEPLOY_IMAGE_NAME: deploy-image
+    DEPLOY_IMAGE_VERSION : 2021-08-R2
+
+include:
+  - local: '/terraform/gl-pipeline.yml' # creates resources in aws  
+  - local: '/src/gl-pipeline.yml' # deploys the application/service (e.g. API)    
+  - local: '/initContainer/gl-pipeline.yml' # deploys the application/service (e.g. API)

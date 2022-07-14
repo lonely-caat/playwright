@@ -1,0 +1,46 @@
+---
+version: effx/v1
+kind: service
+spec:
+  name: 'zip-api-merchantdataenrichment'
+  description: 'This service enrich the data from Marqeta with LWC api results'
+  annotations:
+    effx.io/owned-by: 'Partners'
+  tags:
+    owner: 'partners'
+    aws: 'v2'
+    type: 'service'
+  contact:
+    email: 'bassupoort@zip.co'
+    chat:
+      label: '#bas-partners-support'
+      url: 'https://zipmoney.slack.com/archives/C01D9E0J1CN'
+    onCall:
+      label: 'Opsgenie schedule'
+      url: 'https://zip.app.opsgenie.com/teams/dashboard/8845efe2-5163-4bd0-9838-7efc1f5e8f5d/main'
+  linkGroups:
+    - label: 'Dashboards'
+      links:
+        - label: 'newrelic'
+          url: 'https://one.newrelic.com/launcher/nr1-core.explorer?platform[accountId]=1367286&platform[filters]=Iihkb21haW4gPSAnQVBNJyBBTkQgdHlwZSA9ICdBUFBMSUNBVElPTicpIEFORCAobmFtZSBMSUtFICdlbnJpY2gnIE9SIGlkID0gJ2VucmljaCcgT1IgZG9tYWluSWQgPSAnZW5yaWNoJyki&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true&pane=eyJuZXJkbGV0SWQiOiJhcG0tbmVyZGxldHMub3ZlcnZpZXciLCJlbnRpdHlHdWlkIjoiTVRNMk56STRObnhCVUUxOFFWQlFURWxEUVZSSlQwNThOekk1TnpNek5qZzUiLCJpc092ZXJ2aWV3Ijp0cnVlLCJyZWZlcnJlcnMiOnsibGF1bmNoZXJJZCI6Im5yMS1jb3JlLmV4cGxvcmVyIiwibmVyZGxldElkIjoibnIxLWNvcmUubGlzdGluZyJ9fQ==&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5hY3Rpb25zIiwic2VsZWN0ZWROZXJkbGV0Ijp7Im5lcmRsZXRJZCI6ImFwbS1uZXJkbGV0cy5vdmVydmlldyIsImlzT3ZlcnZpZXciOnRydWV9LCJlbnRpdHlHdWlkIjoiTVRNMk56STRObnhCVUUxOFFWQlFURWxEUVZSSlQwNThOekk1TnpNek5qZzUifQ=='
+    - label: 'Version Control'
+      links:
+        - label: 'gitlab'
+          url: 'https://gitlab.com/zip-au/merchant/zip.api.merchantdataenrichment'
+    - label: 'Runbook'
+      links:
+        - label: 'Runbook'
+          url: 'https://gitlab.com/zip-au/merchant/zip.api.merchantdataenrichment/-/blob/develop/README.md'
+    - label: 'Documentation'
+      links:
+        - label: 'API Documentation'
+          url: 'https://zipmoney.atlassian.net/wiki/spaces/DEV/pages/1577943209/Merchant+Data+Enrichment'
+  dependencies:
+    manual:
+      # Both describe dependencies on other services by name
+      - kind: 'service'
+        name: 'Look Whos Charging Api'
+      - kind: 'service'
+        name: 'enrichment postgres db'
+      - kind: 'service'
+        name: 'Kafka event hub'

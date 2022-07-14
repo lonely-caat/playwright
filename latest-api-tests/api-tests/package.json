@@ -1,0 +1,33 @@
+{
+  "name": "mps_api_tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run create:env && jest",
+    "test:dev": "cross-env TEST_ENV=dev npm test",
+    "create:env": "node ./utils/create-env.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "chalk": "^4.0.0",
+    "cross-env": "^7.0.2",
+    "dotenv-safe": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.4.0",
+    "jest-html-reporters": "^1.2.1",
+    "jest-junit": "^10.0.0",
+    "prettier": "^2.0.4",
+    "supertest": "^4.0.2",
+    "uuid": "^7.0.3"
+  },
+  "dependencies": {
+    "jest-cli": "^26.6.3"
+  }
+}
