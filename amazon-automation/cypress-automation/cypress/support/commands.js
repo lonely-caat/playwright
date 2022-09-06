@@ -31,10 +31,6 @@ Cypress.Commands.add('isHidden', selector => {
     cy.get(selector).should('not.exist');
 })
 
-// TODO: question can default parameters be data types? e.g. username:string ?
-// TODO rewrite as an API call maybe?
-// TODO should we add a catch to check if logged in already?
-// TODO should we add a check if we logged in? then we will need to repeat the same functionality for negative tests
 Cypress.Commands.add('logIn', (username, password) => {
     // cy.get('.header__optionLineTwo').click();
     cy.contains('Sign-in').should('be.visible');

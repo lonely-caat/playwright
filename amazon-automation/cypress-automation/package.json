@@ -6,6 +6,9 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox",
+    "cy:run:electron": "cypress run --browser electron",
     "cy:update-snapshots": "cypress run --env updateSnaspshots=true",
     "cy:run:record": "cypress run --record --key 45fc2714-b690-4fae-bb71-27903ad6d783"
   },

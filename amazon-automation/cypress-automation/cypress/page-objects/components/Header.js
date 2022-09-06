@@ -1,17 +1,20 @@
 export default class Header {
-    static clickOnLogo(){
+     clickOnLogo(){
         cy.get('.header__logo').click();
     }
-    static searchProduct(product){
+     searchProduct(product){
         cy.get('.header__searchInput').type(`${product} {enter}`)
     }
-    static getBasket(){
+     getBasket(){
         cy.get('MuiSvgIcon-root').click();
     }
-    static signOut(){
+     signOut(){
         cy.contains('Sign Out').click();
     }
-    static signIn(){
+     signIn(){
         cy.contains('Sign In').click();
+    }
+     checkUserLoggedIn(username){
+        cy.get('.header__optionLineOne').contains(`Hello ${username}`)
     }
 }
