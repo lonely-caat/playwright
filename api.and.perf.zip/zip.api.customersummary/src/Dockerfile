@@ -13,7 +13,7 @@ RUN dotnet add package NewRelic.Agent
 RUN dotnet restore
 
 # Copy everything else and build
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -api.and.perf.zip out
 
 WORKDIR /app
 # Build runtime image

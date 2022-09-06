@@ -16,7 +16,7 @@ RUN rm -rf ./src/nuget.ci.build.config
 
 # Copy everything else and build
 COPY . ./
-RUN cd src/Zip.Api.CustomerProfile && dotnet publish -c Release -o out --no-restore
+RUN cd src/Zip.Api.CustomerProfile && dotnet publish -c Release -api.and.perf.zip out --no-restore
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine

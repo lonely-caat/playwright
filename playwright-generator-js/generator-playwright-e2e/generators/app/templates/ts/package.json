@@ -14,7 +14,7 @@
     "test:ui:sandbox:safari": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='SANDBOX' run-s setup \"test -- --browser=webkit\" ",
     "test:ci": "NODE_NO_WARNINGS=1 HEADLESS=true TEST_ENV='SANDBOX' TEST_CI=true run-s setup test"
   },
-  "author": "Dinesh Kumar",
+  "author": "meow",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.14.0",

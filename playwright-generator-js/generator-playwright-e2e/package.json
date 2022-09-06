@@ -6,8 +6,8 @@
   "repository": "git@gitlab.com:zip-au/qa/generator-playwright-e2e.git",
   "homepage": "",
   "author": {
-    "name": "Dinesh Kumar",
-    "email": "dinesh.kumar@zip.co"
+    "name": "meow",
+    "email": "meow@meow.meow"
   },
   "files": [
     "generators"
