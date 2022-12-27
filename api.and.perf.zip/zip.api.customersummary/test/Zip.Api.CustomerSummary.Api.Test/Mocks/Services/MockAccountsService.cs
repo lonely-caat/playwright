@@ -71,7 +71,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
 
         public Task<CloseAccountResponse> CloseAccount(
             long accountId,
-            [Header("X-Correlation-Id")] string correlationId)
+            [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return Task.FromResult(new CloseAccountResponse
             {
@@ -95,7 +95,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
         public Task<CloseAccountResponse> CloseAccount(
             long accountId,
             [Body] CloseAccountRequest request,
-            [Header("X-Correlation-Id")] string correlationId)
+            [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return CloseAccount(accountId, correlationId);
         }

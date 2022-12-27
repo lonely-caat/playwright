@@ -31,7 +31,7 @@ namespace Zip.Api.CustomerSummary.AcceptanceTests.Mocks.Services
 
         public async Task<HttpResponseMessage> SendResetPasswordEmailAsync(
             CoreResetPasswordModel coreResetPasswordModel,
-            [Header("Authorization")] string token,
+            [Sidebar("Authorization")] string token,
             CancellationToken cancellationToken)
         {
             return new HttpResponseMessage(HttpStatusCode.Accepted);

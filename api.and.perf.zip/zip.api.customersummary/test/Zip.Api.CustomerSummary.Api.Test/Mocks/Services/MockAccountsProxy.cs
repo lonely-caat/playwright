@@ -35,7 +35,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
             return Task.FromResult(new CanUnlockResponse());
         }
 
-        public Task<CloseAccountResponse> CloseAccount(long accountId, [Header("X-Correlation-Id")] string correlationId)
+        public Task<CloseAccountResponse> CloseAccount(long accountId, [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return Task.FromResult(new CloseAccountResponse
             {
@@ -56,7 +56,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
             });
         }
 
-        public Task<CloseAccountResponse> CloseAccount(long accountId, [Body] CloseAccountRequest request, [Header("X-Correlation-Id")] string correlationId)
+        public Task<CloseAccountResponse> CloseAccount(long accountId, [Body] CloseAccountRequest request, [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return this.CloseAccount(accountId, correlationId);
         }
@@ -174,7 +174,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
             return Task.FromResult(string.Empty);
         }
 
-        public Task<ReopenAccountResponse> ReopenAccount(long accountId, [Body] ReopenAccountRequest request, [Header("X-Correlation-Id")] string correlationId)
+        public Task<ReopenAccountResponse> ReopenAccount(long accountId, [Body] ReopenAccountRequest request, [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return Task.FromResult(new ReopenAccountResponse());
         }
@@ -189,7 +189,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
             return Task.FromResult(new UnlockAccountResponse());
         }
 
-        public Task<UnWriteOffAccountResponse> UnWriteOffAccount(long accountId, [Body] UnWriteOffAccountRequest request, [Header("Idempotency-Key")] string idempotencyKey, [Header("X-Correlation-Id")] string correlationId)
+        public Task<UnWriteOffAccountResponse> UnWriteOffAccount(long accountId, [Body] UnWriteOffAccountRequest request, [Sidebar("Idempotency-Key")] string idempotencyKey, [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return Task.FromResult(new UnWriteOffAccountResponse());
         }
@@ -239,7 +239,7 @@ namespace Zip.Api.CustomerSummary.Api.Test.Mocks.Services
             return Task.FromResult(new VoidTransactionResponse());
         }
 
-        public Task<WriteOffAccountResponse> WriteOffAccount(long accountId, [Body] WriteOffAccountRequest request, [Header("Idempotency-Key")] string idempotencyKey, [Header("X-Correlation-Id")] string correlationId)
+        public Task<WriteOffAccountResponse> WriteOffAccount(long accountId, [Body] WriteOffAccountRequest request, [Sidebar("Idempotency-Key")] string idempotencyKey, [Sidebar("X-Correlation-Id")] string correlationId)
         {
             return Task.FromResult(new WriteOffAccountResponse());
         }

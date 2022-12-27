@@ -21,7 +21,7 @@ namespace Zip.Api.CustomerSummary.Infrastructure.Services.CoreService.Interfaces
         [Post("/login/api/admin/reset-user-password")]
         Task<HttpResponseMessage> SendResetPasswordEmailAsync(
             CoreResetPasswordModel coreResetPasswordModel,
-            [Header("Authorization")] string token,
+            [Sidebar("Authorization")] string token,
             CancellationToken cancellationToken);
     }
 }

@@ -57,15 +57,15 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Sidebar Manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">content-type</stringProp>
-                <stringProp name="Header.value">application/json</stringProp>
+              <elementProp name="" elementType="Sidebar">
+                <stringProp name="Sidebar.name">content-type</stringProp>
+                <stringProp name="Sidebar.value">application/json</stringProp>
               </elementProp>
-              <elementProp name="" elementType="Header">
-                <stringProp name="Header.name">accept</stringProp>
-                <stringProp name="Header.value">application/json</stringProp>
+              <elementProp name="" elementType="Sidebar">
+                <stringProp name="Sidebar.name">accept</stringProp>
+                <stringProp name="Sidebar.value">application/json</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>

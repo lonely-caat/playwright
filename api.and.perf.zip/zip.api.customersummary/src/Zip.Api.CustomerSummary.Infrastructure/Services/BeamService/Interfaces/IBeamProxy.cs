@@ -20,9 +20,9 @@ namespace Zip.Api.CustomerSummary.Infrastructure.Services.BeamService.Interfaces
         Task<TransactionRewardDetailsResponse> GetTransactionRewardDetailsAsync([Query] Guid customerId, [Query] long transactionId);
 
         [Post("/trusted-application-api/v1/secure/zip/ledger-reconciliation-reports/export?year={year}&month={month}&region={region}")]
-        Task<CreateReconciliationReportResponse> CreateReconciliationReportAsync([Query] long year, [Query] long month, [Header("From")] string requestedBy, [Query] string region);
+        Task<CreateReconciliationReportResponse> CreateReconciliationReportAsync([Query] long year, [Query] long month, [Sidebar("From")] string requestedBy, [Query] string region);
 
         [Get("/trusted-application-api/v1/secure/zip/ledger-reconciliation-reports/{reportId}/poll")]
-        Task<PollReconciliationReportResponse> PollReconciliationReportAsync([Query] Guid reportId, [Header("From")] string requestedBy);
+        Task<PollReconciliationReportResponse> PollReconciliationReportAsync([Query] Guid reportId, [Sidebar("From")] string requestedBy);
     }
 }

@@ -17,7 +17,7 @@ namespace Zip.Api.CustomerSummary.Infrastructure.Services.CoreGraphService.Inter
 
         [Post("/internal/graphql")]
         public Task<PayOrderResponse> PayOrderAsync(
-            [Header("x-zip-forwarded-for")] string ipAddress,
+            [Sidebar("x-zip-forwarded-for")] string ipAddress,
             [Body] PayOrderRequest request);
     }
 }

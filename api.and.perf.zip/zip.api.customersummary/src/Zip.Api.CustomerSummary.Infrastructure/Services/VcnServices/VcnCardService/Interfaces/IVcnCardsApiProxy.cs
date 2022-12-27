@@ -19,13 +19,13 @@ namespace Zip.Api.CustomerSummary.Infrastructure.Services.VcnServices.VcnCardSer
         Task<HttpResponseMessage> GetCardsAsync(Guid customerId, long? accountId, CancellationToken cancellationToken);
 
         [Put("/cards/{cardId}/block")]
-        Task<HttpResponseMessage> BlockCardAsync([Header("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> BlockCardAsync([Sidebar("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
 
         [Put("/cards/{cardId}/unblock")]
-        Task<HttpResponseMessage> UnblockCardAsync([Header("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> UnblockCardAsync([Sidebar("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
 
         [Put("/cards/{cardId}/close")]
-        Task<HttpResponseMessage> CloseCardAsync([Header("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
+        Task<HttpResponseMessage> CloseCardAsync([Sidebar("Customer-Id")] string customerId, Guid cardId, CancellationToken cancellationToken);
 
         [Post("/internal/digitalwallet/tokentransition")]
         Task<HttpResponseMessage> SendTokenTransitionRequestAsync(TokenTransitionRequest request, CancellationToken cancellationToken);
