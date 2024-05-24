@@ -1,0 +1,106 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "path": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "fileType": {
+        "type": "string"
+      },
+      "subCategory": {
+        "type": "string"
+      },
+      "regexHits": {
+        "type": "array"
+      },
+      "createdAt": {
+        "type": "string"
+      },
+      "lastModifiedAt": {
+        "type": "string"
+      },
+      "classifierResult": {
+        "type": "integer"
+      },
+      "contentLength": {
+        "type": "integer"
+      },
+      "formattedContentLength": {
+        "type": "string"
+      },
+      "configurationId": {
+        "type": "string"
+      },
+      "subCategoryConfidence": {
+        "type": "number"
+      },
+      "categoryConfidence": {
+        "type": "number"
+      },
+      "connectorData": {
+        "type": "object"
+      },
+      "detectorHits": {
+        "type": "array"
+      },
+      "permissions": {
+        "type": "array"
+      },
+      "md5": {
+        "type": "string"
+      },
+      "flow": {
+        "type": "string"
+      },
+      "manual": {
+        "type": "boolean"
+      },
+      "distributionTags": {
+        "type": "array"
+      },
+      "complianceTags": {
+        "type": "array"
+      },
+      "uIngestedTime": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "source",
+      "path",
+      "category",
+      "fileType",
+      "subCategory",
+      "regexHits",
+      "createdAt",
+      "lastModifiedAt",
+      "classifierResult",
+      "contentLength",
+      "formattedContentLength",
+      "configurationId",
+      "subCategoryConfidence",
+      "categoryConfidence",
+      "connectorData",
+      "detectorHits",
+      "permissions",
+      "md5",
+      "flow",
+      "manual",
+      "distributionTags",
+      "complianceTags",
+      "uIngestedTime"
+    ]
+  }
+}
