@@ -3,7 +3,7 @@ const { request, expect } = require('@playwright/test');
 module.exports = async () => {
     const username = process.env.USERNAME || "gv";
     const password = process.env.PASSWORD || "gv";
-    const baseUrl = process.env.BASE_URL || "https://enterpriseqa.gvdevelopment.k3s.getvisibility.com";
+    const baseUrl = process.env.BASE_URL || "";
 
     const createRequestContext = await request.newContext();
     const formData = new URLSearchParams({

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../algorythms-and-challenges/.idea/algorythms-and-challenges.iml" filepath="$PROJECT_DIR$/../algorythms-and-challenges/.idea/algorythms-and-challenges.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/playwright.iml" filepath="$PROJECT_DIR$/.idea/playwright.iml" />
     </modules>
   </component>

@@ -8,7 +8,7 @@ const envFile = process.env.ENV_FILE || '.env'; // Default to '.env'
 dotenv.config({ path: envFile });
 
 export const STORAGE_STATE = 'playwright/.auth/user.json';
-export const defaultBaseURL = process.env.BASE_URL || 'https://enterpriseqa.gvdevelopment.k3s.getvisibility.com';
+export const defaultBaseURL = process.env.BASE_URL || '';
 
 const runURL = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
 
@@ -50,9 +50,9 @@ const metaInfo = [
 let slackChannel = 'uat-automation-tests-testing';
 
 if (process.env.ENVIRONMENT === 'uat') {
-  slackChannel = process.env.SLACK_CHANNEL_QA || 'uat-automation-tests';
-} else if (process.env.ENVIRONMENT === 'questdev') {
-  slackChannel = process.env.SLACK_CHANNEL_DEV || 'questdev-automation-tests';
+  slackChannel = process.env.SLACK_CHANNEL_QA || '';
+} else if (process.env.ENVIRONMENT === '') {
+  slackChannel = process.env.SLACK_CHANNEL_DEV || '';
 }
 
 export default defineConfig({
